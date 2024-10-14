@@ -61,6 +61,7 @@ namespace MSO_opdracht_2
 					choice = Console.ReadLine();
 				}
 			}
+			//Vragen voor calculator of runnen
 			program.Run();
 		}
 	}
