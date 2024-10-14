@@ -29,7 +29,7 @@ namespace MSO_opdracht_2
 					player.position = new Point(player.position.X, player.position.Y - amount);
 					return player;
 				case "West":
-					player.position = new Point(player.position.X - amount, player.position.Y + amount);
+					player.position = new Point(player.position.X - amount, player.position.Y);
 					return player;
 			}
 			return player;

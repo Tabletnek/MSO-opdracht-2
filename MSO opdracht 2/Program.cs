@@ -10,7 +10,7 @@ namespace MSO_opdracht_2
 	internal class Program
 	{
 		Player player;
-		List<ITask> tasks;
+		public List<ITask> tasks;
 		public Program() 
 		{
 			this.player = new Player(new Point(0,0), "East");
@@ -30,6 +30,7 @@ namespace MSO_opdracht_2
 			{
 				Console.Write(task.ToString());
 				player = task.Execute(player);
+				//Console.WriteLine($"Current position: {player.position} facing {player.direction}");
 			}
 			Console.Write($"End state ({player.position.X}, {player.position.Y}), facing {player.direction}");
 		}
