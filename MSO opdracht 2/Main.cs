@@ -58,7 +58,7 @@ namespace MSO_opdracht_2
 					string filename = Console.ReadLine();
 					string inputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", filename);
 					inputFilePath = Path.GetFullPath(inputFilePath);
-					program = translator.Translate(inputFilePath);
+					program = translator.TranslateFile(inputFilePath);
 					break;
 				}
 				else
