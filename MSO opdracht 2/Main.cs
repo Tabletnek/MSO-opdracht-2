@@ -12,8 +12,14 @@ namespace MSO_opdracht_2
 			Translator translator = new Translator();
 			Calculator calculator = new Calculator();
 
+			Program basicProgram = new Program();
+			basicProgram.AddTask(new Move(10));
+			basicProgram.AddTask(new Turn("right"));
 
-			Console.WriteLine("Do you want to use one of the example programs or import one? Type 'Example' or 'Import'");
+			Program advancedProgram = new Program();
+			advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
+
+            Console.WriteLine("Do you want to use one of the example programs or import one? Type 'Example' or 'Import'");
 			string choice = Console.ReadLine();
 			while (choice != null) 
 			{
@@ -25,13 +31,13 @@ namespace MSO_opdracht_2
 					{
 						if (exampleType == "Basic")
 						{
-							//program = basicProgram;
-							//break;
+							program = basicProgram;
+							break;
 						}
 						else if (exampleType == "Advanced")
 						{
-							//program = advancedProgram;
-							//break;
+							program = advancedProgram;
+							break;
 						}
 						else if (exampleType == "Expert")
 						{
