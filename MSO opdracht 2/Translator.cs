@@ -21,7 +21,7 @@ namespace MSO_opdracht_2
         public Program TranslateProgram(StreamReader sr, int nestedLoops)
         {
             Program program = new Program();
-            while (true)
+            while (line != null)
             {
                 if (nestedLoops > 0)
                 {
@@ -31,29 +31,23 @@ namespace MSO_opdracht_2
                         return program;
                     }
                 }
-                if (line != "start" && line != null)
+                string trimmedLine = line.Trim();
+                var split = trimmedLine.Split(" ");
+                string task = split[0];
+                switch (task)
                 {
-                    string trimmedLine = line.Trim();
-                    var split = trimmedLine.Split(" ");
-                    string task = split[0];
-                    switch (task)
-                    {
-                        case "Move":
-                            line = sr.ReadLine();
-                            program.AddTask(new Move(int.Parse(split[1]))); break;
-                        case "Turn":
-                            line = sr.ReadLine();
-                            program.AddTask(new Turn(split[1])); break;
-                        case "Repeat":
-                            line = sr.ReadLine();
-                            program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks)); break;
-                    }
+                    case "Move":
+                        line = sr.ReadLine();
+                        program.AddTask(new Move(int.Parse(split[1]))); break;
+                    case "Turn":
+                        line = sr.ReadLine();
+                        program.AddTask(new Turn(split[1])); break;
+                    case "Repeat":
+                        line = sr.ReadLine();
+                        program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks)); break;
                 }
-                else
-                {
-                    return program;
-                }
-            } 
+            }
+            return program;
         }
     }
 }
