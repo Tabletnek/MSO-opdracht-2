@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MSO_opdracht_2
 {
-	internal class Program
+	public class Program
 	{
 		Player player;
 		public List<ITask> tasks;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MSO_opdracht_2
 {
-	internal class Move : ITask
+	public class Move : ITask
 	{
 		private int amount;
 		public Move(int amount) 

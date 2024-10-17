@@ -8,7 +8,7 @@ using System.Transactions;
 
 namespace MSO_opdracht_2
 {
-	internal class Repeat : ITask
+	public class Repeat : ITask
 	{
 		int amount;
 		public List<ITask> tasks;
