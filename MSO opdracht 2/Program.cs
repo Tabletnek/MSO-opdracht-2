@@ -9,7 +9,7 @@ namespace MSO_opdracht_2
 {
 	public class Program
 	{
-		Player player;
+		public Player player;
 		public List<ITask> tasks;
 		public Program() 
 		{
@@ -19,7 +19,6 @@ namespace MSO_opdracht_2
 
 		public void AddTask(ITask task)
 		{
-			
 			this.tasks.Add(task);
 		}
 

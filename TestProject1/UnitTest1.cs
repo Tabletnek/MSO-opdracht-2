@@ -1,4 +1,5 @@
 using MSO_opdracht_2;
+using System.Drawing;
 
 namespace TestProject1
 {
@@ -58,63 +59,86 @@ namespace TestProject1
             return false;
         }
 
+        [Fact]
+        public void ExecuteCommandTest1()
+        {
+            basicProgram.Run();
+            Assert.Equal(new Point(10, 0), basicProgram.player.position);
+            Assert.Equal("South", basicProgram.player.direction);
+        }
 
         [Fact]
-        public void numOfCommandsTest1()
+        public void ExecuteCommandTest2()
+        {
+            advancedProgram.Run();
+            Assert.Equal(new Point(0, 0), advancedProgram.player.position);
+            Assert.Equal("East", advancedProgram.player.direction);
+        }
+
+        [Fact]
+        public void ExecuteCommandTest3()
+        {
+            expertProgram.Run();
+            Assert.Equal(new Point(0, 0), expertProgram.player.position);
+            Assert.Equal("East", expertProgram.player.direction);
+        }
+
+        [Fact]
+        public void NumOfCommandsTest1()
         {
             Assert.Equal(2, calc.numOfCommands(basicProgram));
         }
 
         [Fact]
-        public void numOfCommandsTest2()
+        public void NumOfCommandsTest2()
         {
             Assert.Equal(3, calc.numOfCommands(advancedProgram));
         }
 
         [Fact]
-        public void numOfCommandsTest3()
+        public void NumOfCommandsTest3()
         {
             Assert.Equal(4, calc.numOfCommands(expertProgram));
         }
 
         [Fact]
-        public void maxNestLvlTest1()
+        public void MaxNestLvlTest1()
         {
             Assert.Equal(0, calc.maxNestLvl(basicProgram));
         }
 
         [Fact]
-		public void maxNestLvlTest2()
+		public void MaxNestLvlTest2()
 		{
             Assert.Equal(1, calc.maxNestLvl(advancedProgram));
         }
 
         [Fact]
-        public void maxNestLvlTest3()
+        public void MaxNestLvlTest3()
         {
             Assert.Equal(2, calc.maxNestLvl(expertProgram));
         }
 
         [Fact]
-        public void numOfRepeatsTest1()
+        public void NumOfRepeatsTest1()
         {
             Assert.Equal(0, calc.numOfRepeats(basicProgram));
         }
 
         [Fact]
-        public void numOfRepeatsTest2()
+        public void NumOfRepeatsTest2()
         {
             Assert.Equal(1, calc.numOfRepeats(advancedProgram));
         }
 
         [Fact]
-        public void numOfRepeatsTest3()
+        public void NumOfRepeatsTest3()
         {
             Assert.Equal(2, calc.numOfRepeats(expertProgram));
         }
 
         [Fact]
-        public void translatorTest1()
+        public void TranslatorTest1()
         {
             string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\basicProgram.txt");
             inputFilePath = Path.GetFullPath(inputFilePath);
@@ -124,7 +148,7 @@ namespace TestProject1
         }
 
         [Fact]
-        public void translatorTest2()
+        public void TranslatorTest2()
         {
             string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\advancedProgram.txt");
             inputFilePath = Path.GetFullPath(inputFilePath);
@@ -134,7 +158,7 @@ namespace TestProject1
         }
 
         [Fact]
-        public void translatorTest3()
+        public void TranslatorTest3()
         {
             string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\expertProgram.txt");
             inputFilePath = Path.GetFullPath(inputFilePath);
