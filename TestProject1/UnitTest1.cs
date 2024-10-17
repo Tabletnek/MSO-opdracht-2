@@ -85,11 +85,12 @@ namespace TestProject1
         {
             string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\basicProgram.txt");
             inputFilePath = Path.GetFullPath(inputFilePath);
-			Program actualProgram = trans.TranslateFile(inputFilePath);
+			Program transProgram = trans.TranslateFile(inputFilePath);
             //We can't just check if a task is equal, because it would just check if it is the same instance of the class of that task and that will not be the case.
-			Assert.Equal(basicProgram.tasks.Count, actualProgram.tasks.Count);
+			Assert.Equal(basicProgram.tasks.Count, transProgram.tasks.Count);
 
-			Assert.Collection(actualProgram.tasks,
+            //We need to check if the individual elements are the same
+			Assert.Collection(transProgram.tasks,
 				task => {
 					var moveTask = Assert.IsType<Move>(task);
 					Assert.Equal(10, moveTask.amount);
