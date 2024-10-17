@@ -1,7 +1,6 @@
 Repeat 4 times
  Move 10
  Repeat 3 times
-  Move 3
-Move 2
+  Move 2
 Move 4
 Move 15

@@ -9,9 +9,11 @@ namespace MSO_opdracht_2
 {
     internal class Translator
     {
+        string line;
         public Program TranslateFile(string filePath)
         {
             StreamReader sr = new StreamReader(filePath);
+            line = sr.ReadLine();
 
             return TranslateProgram(sr, 0);
         }
@@ -19,44 +21,39 @@ namespace MSO_opdracht_2
         public Program TranslateProgram(StreamReader sr, int nestedLoops)
         {
             Program program = new Program();
-
-            string line = sr.ReadLine();
-            string nextLine = null;
-
-            while (line != null)
+            while (true)
             {
                 if (nestedLoops > 0)
                 {
                     char indent = line[nestedLoops - 1];
                     if (indent != ' ')
                     {
-                        nextLine = line;
                         return program;
                     }
                 }
-
-                string trimmedLine = line.Trim();
-                var split = trimmedLine.Split(" ");
-                string task = split[0];
-
-                switch (task)
+                if (line != "start" && line != null)
                 {
-                    case "Move":
-                        program.AddTask(new Move(int.Parse(split[1])));
-                        break;
-                    case "Turn":
-                        program.AddTask(new Turn(split[1]));
-                        break;
-                    case "Repeat":
-                        program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks));
-                        break;
+                    string trimmedLine = line.Trim();
+                    var split = trimmedLine.Split(" ");
+                    string task = split[0];
+                    switch (task)
+                    {
+                        case "Move":
+                            line = sr.ReadLine();
+                            program.AddTask(new Move(int.Parse(split[1]))); break;
+                        case "Turn":
+                            line = sr.ReadLine();
+                            program.AddTask(new Turn(split[1])); break;
+                        case "Repeat":
+                            line = sr.ReadLine();
+                            program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks)); break;
+                    }
                 }
-
-                line = nextLine ?? sr.ReadLine();
-                nextLine = null; 
-            }
-
-            return program;
+                else
+                {
+                    return program;
+                }
+            } 
         }
     }
 }
