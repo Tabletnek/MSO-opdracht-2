@@ -34,16 +34,14 @@ namespace MSO_opdracht_2
                 string trimmedLine = line.Trim();
                 var split = trimmedLine.Split(" ");
                 string task = split[0];
+                line = sr.ReadLine();
                 switch (task)
                 {
                     case "Move":
-                        line = sr.ReadLine();
                         program.AddTask(new Move(int.Parse(split[1]))); break;
                     case "Turn":
-                        line = sr.ReadLine();
                         program.AddTask(new Turn(split[1])); break;
                     case "Repeat":
-                        line = sr.ReadLine();
                         program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks)); break;
                 }
             }
