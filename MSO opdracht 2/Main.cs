@@ -59,11 +59,24 @@ namespace MSO_opdracht_2
 				{
 					Console.WriteLine("Insert the text file into the same folder as the cs files and type the filename here. e.g. Input1");
 					string filename = Console.ReadLine();
-					//For the path finding I used https://stackoverflow.com/questions/15653921/get-current-folder-path
-					string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", filename + ".txt");
-					inputFilePath = Path.GetFullPath(inputFilePath);
-					program = translator.TranslateFile(inputFilePath);
-					break;
+					while (filename != null)
+					{
+						//For the path finding I used https://stackoverflow.com/questions/15653921/get-current-folder-path
+						string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", filename + ".txt");
+						inputFilePath = Path.GetFullPath(inputFilePath);
+						//To check if a file exists I used https://www.geeksforgeeks.org/file-exists-method-in-c-sharp-with-examples/
+						if (File.Exists(inputFilePath))
+						{
+							program = translator.TranslateFile(inputFilePath);
+							choice = null;
+							break;
+						}
+						else
+						{
+							Console.WriteLine("This file doesn't exist. Make sure to enter an existing file name, without .txt)");
+							filename = Console.ReadLine();
+						}
+					}
 				}
 				else
 				{
