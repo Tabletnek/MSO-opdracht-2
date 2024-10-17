@@ -57,7 +57,7 @@ namespace MSO_opdracht_2
 				}
 				else if (choice == "Import")
 				{
-					Console.WriteLine("Insert the text file into the same file as the cs files and type the filename here");
+					Console.WriteLine("Insert the text file into the same file as the cs files and type the filename here. e.g. Input1.txt");
 					string filename = Console.ReadLine();
 					string inputFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", filename);
 					inputFilePath = Path.GetFullPath(inputFilePath);
@@ -85,7 +85,6 @@ namespace MSO_opdracht_2
 				{
 					program.Run();
 					break;
-
 				}
 				else
 				{
@@ -93,6 +92,8 @@ namespace MSO_opdracht_2
 					choice2 = Console.ReadLine();
 				}
 			}
+			Console.WriteLine("\nPress any key to exit...");
+			Console.ReadKey();
 		}
 	}
 }
