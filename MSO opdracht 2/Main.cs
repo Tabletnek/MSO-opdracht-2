@@ -19,6 +19,9 @@ namespace MSO_opdracht_2
 			Program advancedProgram = new Program();
 			advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
 
+			Program expertProgram = new Program();
+			expertProgram.AddTask(new Repeat(3, advancedProgram.tasks));
+
             Console.WriteLine("Do you want to use one of the example programs or import one? Type 'Example' or 'Import'");
 			string choice = Console.ReadLine();
 			while (choice != null) 
@@ -41,8 +44,8 @@ namespace MSO_opdracht_2
 						}
 						else if (exampleType == "Expert")
 						{
-							//program = expertProgram;
-							//break;
+							program = expertProgram;
+							break;
 						}
 						else
 						{
@@ -67,8 +70,29 @@ namespace MSO_opdracht_2
 					choice = Console.ReadLine();
 				}
 			}
-			//Vragen voor calculator of runnen
-			program.Run();
+			Console.WriteLine("Okay, now that we have selected a program, what do you want to do with it? Calculate or Run?");
+			string choice2 = Console.ReadLine();
+			while (choice2 != null)
+			{
+				if (choice2 == "Calculate")
+				{
+					Console.WriteLine($"The amount of commands of this program is: {calculator.numOfCommands(program)}");
+					Console.WriteLine($"The amount of repeats of this program is: {calculator.numOfRepeats(program)}");
+					Console.WriteLine($"The max level of nesting of this program is: {calculator.maxNestLvl(program)}");
+					break;
+				}
+				else if (choice2 == "Run")
+				{
+					program.Run();
+					break;
+
+				}
+				else
+				{
+					Console.WriteLine("Wrong answer. Type 'Calculate' or 'Run'");
+					choice2 = Console.ReadLine();
+				}
+			}
 		}
 	}
 }

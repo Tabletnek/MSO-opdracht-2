@@ -10,21 +10,64 @@ namespace MSO_opdracht_2
 	{
 		public int numOfCommands(Program prog)
 		{
-			return prog.tasks.Count;
+			int number = 0;
+			foreach (var task in prog.tasks)
+			{
+				number++;
+				if (task is Repeat)
+				{
+					Repeat currentRepeat = task as Repeat;
+					Program repeatProgram = new Program();
+
+					foreach (var repeatTask in currentRepeat.tasks)
+						repeatProgram.tasks.Add(repeatTask);
+
+					number += numOfCommands(repeatProgram);
+				}
+			}
+			return number;
 		}
 
 		public int maxNestLvl(Program prog)
 		{
-			return 0;
-		}
-
-		public int numOfRepeat(Program prog)
-		{
-			int number = 0;
-			foreach (var task in prog.tasks) 
+			int maxNumber = 0;
+			foreach (var task in prog.tasks)
 			{
 				if (task is Repeat)
-					number += 1;
+				{
+					Repeat currentRepeat = task as Repeat;
+					Program repeatProgram = new Program();
+
+					foreach (var repeatTask in currentRepeat.tasks)
+						repeatProgram.tasks.Add(repeatTask);
+
+					int currentNumber = 1 + maxNestLvl(repeatProgram);
+
+					if (currentNumber > maxNumber)
+					{
+						maxNumber = currentNumber;
+					}
+				}
+			}
+			return maxNumber;
+		}
+
+		public int numOfRepeats(Program prog)
+		{
+			int number = 0;
+			foreach (var task in prog.tasks)
+			{
+				if (task is Repeat)
+				{
+					number++;
+					Repeat currentRepeat = task as Repeat;
+					Program repeatProgram = new Program();
+
+					foreach (var repeatTask in currentRepeat.tasks)
+						repeatProgram.tasks.Add(repeatTask);
+
+					number += numOfRepeats(repeatProgram);
+				}
 			}
 			return number;
 		}

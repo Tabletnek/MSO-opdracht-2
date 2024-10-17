@@ -11,7 +11,7 @@ namespace MSO_opdracht_2
 	internal class Repeat : ITask
 	{
 		int amount;
-		List<ITask> tasks;
+		public List<ITask> tasks;
 		public Repeat(int amount, List<ITask> tasks)
 		{
 			this.tasks = tasks;
