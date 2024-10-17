@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MSO_opdracht_2
 {
-    internal class Translator
+    public class Translator
     {
         string line;
         public Program TranslateFile(string filePath)

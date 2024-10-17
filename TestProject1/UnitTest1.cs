@@ -5,12 +5,14 @@ namespace TestProject1
 	public class UnitTest1
 	{
         Calculator calc;
+        Translator trans;
         Program basicProgram;
         Program advancedProgram;
         Program expertProgram;
         public UnitTest1()
         {
             calc = new Calculator();
+            trans = new Translator();
 
             basicProgram = new Program();
             basicProgram.AddTask(new Move(10));
@@ -76,6 +78,14 @@ namespace TestProject1
         public void numOfRepeatsTest3()
         {
             Assert.Equal(2, calc.numOfRepeats(expertProgram));
+        }
+
+        [Fact]
+        public void translatorTest1()
+        {
+            string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\basicProgram.txt");
+            inputFilePath = Path.GetFullPath(inputFilePath);
+            Assert.Equal(basicProgram, trans.TranslateFile(inputFilePath));
         }
     }
 }

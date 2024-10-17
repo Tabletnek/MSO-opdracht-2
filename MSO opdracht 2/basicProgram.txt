@@ -1,0 +1,2 @@
+Move 10
+Turn right
