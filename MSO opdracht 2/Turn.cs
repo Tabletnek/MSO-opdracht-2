@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MSO_opdracht_2
 {
-	internal class Turn : ITask
+	public class Turn : ITask
 	{
 		private string direction;
 		public Turn(string direction)

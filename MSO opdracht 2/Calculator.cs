@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSO_opdracht_2
 {
-	internal class Calculator
+	public class Calculator
 	{
 		public int numOfCommands(Program prog)
 		{
