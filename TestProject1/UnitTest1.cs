@@ -85,7 +85,20 @@ namespace TestProject1
         {
             string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\basicProgram.txt");
             inputFilePath = Path.GetFullPath(inputFilePath);
-            Assert.Equal(basicProgram, trans.TranslateFile(inputFilePath));
-        }
+			Program actualProgram = trans.TranslateFile(inputFilePath);
+            //We can't just check if a task is equal, because it would just check if it is the same instance of the class of that task and that will not be the case.
+			Assert.Equal(basicProgram.tasks.Count, actualProgram.tasks.Count);
+
+			Assert.Collection(actualProgram.tasks,
+				task => {
+					var moveTask = Assert.IsType<Move>(task);
+					Assert.Equal(10, moveTask.amount);
+				},
+				task => {
+					var turnTask = Assert.IsType<Turn>(task);
+					Assert.Equal("right", turnTask.direction);
+				}
+			);
+		}
     }
 }

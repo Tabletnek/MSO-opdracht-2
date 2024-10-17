@@ -9,7 +9,7 @@ namespace MSO_opdracht_2
 {
 	public class Move : ITask
 	{
-		private int amount;
+		public int amount;
 		public Move(int amount) 
 		{
 			this.amount = amount;

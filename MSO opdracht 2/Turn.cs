@@ -9,7 +9,7 @@ namespace MSO_opdracht_2
 {
 	public class Turn : ITask
 	{
-		private string direction;
+		public string direction;
 		public Turn(string direction)
 		{
 			this.direction = direction;
