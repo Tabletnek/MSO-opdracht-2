@@ -25,6 +25,39 @@ namespace TestProject1
             expertProgram.AddTask(new Repeat(3, advancedProgram.tasks));
         }
 
+        private bool AreTasksEqual(List<ITask> tasks1, List<ITask> tasks2)
+        {
+            if (tasks1.Count != tasks2.Count)
+                return false;
+
+            for (int i = 0; i < tasks1.Count; i++)
+            {
+                if (!AreTasksEqual(tasks1[i], tasks2[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        // Helper method to compare two ITask objects
+        private bool AreTasksEqual(ITask task1, ITask task2)
+        {
+            if (task1 is Move move1 && task2 is Move move2)
+            {
+                return move1.amount == move2.amount;
+            }
+            else if (task1 is Turn turn1 && task2 is Turn turn2)
+            {
+                return turn1.direction == turn2.direction;
+            }
+            else if (task1 is Repeat repeat1 && task2 is Repeat repeat2)
+            {
+                return repeat1.amount == repeat2.amount && AreTasksEqual(repeat1.tasks, repeat2.tasks);
+            }
+
+            return false;
+        }
+
 
         [Fact]
         public void numOfCommandsTest1()
@@ -87,19 +120,27 @@ namespace TestProject1
             inputFilePath = Path.GetFullPath(inputFilePath);
 			Program transProgram = trans.TranslateFile(inputFilePath);
             //We can't just check if a task is equal, because it would just check if it is the same instance of the class of that task and that will not be the case.
-			Assert.Equal(basicProgram.tasks.Count, transProgram.tasks.Count);
+            Assert.True(AreTasksEqual(basicProgram.tasks, transProgram.tasks));
+        }
 
-            //We need to check if the individual elements are the same
-			Assert.Collection(transProgram.tasks,
-				task => {
-					var moveTask = Assert.IsType<Move>(task);
-					Assert.Equal(10, moveTask.amount);
-				},
-				task => {
-					var turnTask = Assert.IsType<Turn>(task);
-					Assert.Equal("right", turnTask.direction);
-				}
-			);
-		}
+        [Fact]
+        public void translatorTest2()
+        {
+            string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\advancedProgram.txt");
+            inputFilePath = Path.GetFullPath(inputFilePath);
+            Program transProgram = trans.TranslateFile(inputFilePath);
+            //We can't just check if a task is equal, because it would just check if it is the same instance of the class of that task and that will not be the case.
+            Assert.True(AreTasksEqual(advancedProgram.tasks, transProgram.tasks));
+        }
+
+        [Fact]
+        public void translatorTest3()
+        {
+            string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\", @"MSO opdracht 2\expertProgram.txt");
+            inputFilePath = Path.GetFullPath(inputFilePath);
+            Program transProgram = trans.TranslateFile(inputFilePath);
+            //We can't just check if a task is equal, because it would just check if it is the same instance of the class of that task and that will not be the case.
+            Assert.True(AreTasksEqual(expertProgram.tasks, transProgram.tasks));
+        }
     }
 }

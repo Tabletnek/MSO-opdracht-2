@@ -10,7 +10,7 @@ namespace MSO_opdracht_2
 {
 	public class Repeat : ITask
 	{
-		int amount;
+		public int amount;
 		public List<ITask> tasks;
 		public Repeat(int amount, List<ITask> tasks)
 		{
