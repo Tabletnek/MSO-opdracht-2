@@ -30,9 +30,8 @@ namespace MSO_opdracht_2
 			{
 				Console.Write(task.ToString());
 				player = task.Execute(player);
-				//Console.WriteLine($"Current position: {player.position} facing {player.direction}");
 			}
-			Console.Write($"End state ({player.position.X}, {player.position.Y}), facing {player.direction}");
+			Console.Write($"\nEnd state ({player.position.X}, {player.position.Y}), facing {player.direction}");
 		}
 	}
 }
