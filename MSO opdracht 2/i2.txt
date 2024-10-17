@@ -1,6 +1,8 @@
-Repeat 4 times
+﻿Repeat 4 times
 	Move 10
 	Repeat 3 times
 		Move 2
+	Repeat 2 times
+		Turn right
 Move 4
 Move 15

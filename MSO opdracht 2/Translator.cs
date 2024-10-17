@@ -26,7 +26,7 @@ namespace MSO_opdracht_2
                 if (nestedLoops > 0)
                 {
                     char indent = line[nestedLoops - 1];
-                    if (indent != ' ')
+                    if (indent != '\t')
                     {
                         return program;
                     }
