@@ -6,12 +6,15 @@ namespace MSO_opdracht_2
 {
 	public class MainClass
 	{
+		// Where the application starts
 		public static void Main(string[] args)
 		{
-			Program program= new Program();
+			// Create instances of classes we use
+			Program program = new Program(); // Replaced later with the program we want to use
 			Translator translator = new Translator();
 			Calculator calculator = new Calculator();
 
+			// Create the Example Programs
 			Program basicProgram = new Program();
 			basicProgram.AddTask(new Move(10));
 			basicProgram.AddTask(new Turn("right"));
@@ -22,6 +25,7 @@ namespace MSO_opdracht_2
 			Program expertProgram = new Program();
 			expertProgram.AddTask(new Repeat(3, advancedProgram.tasks));
 
+			// Start the conversation with the user
             Console.WriteLine("Do you want to use one of the example programs or import one? Type 'Example' or 'Import'");
 			string choice = Console.ReadLine();
 			while (choice != null) 
@@ -30,6 +34,8 @@ namespace MSO_opdracht_2
 				{
 					Console.WriteLine("What example? Type 'Basic', 'Advanced', 'Expert'");
 					string exampleType = Console.ReadLine();
+
+					// Replace our current empty program with the chosen program
 					while (exampleType != null)
 					{
 						if (exampleType == "Basic")
@@ -49,7 +55,8 @@ namespace MSO_opdracht_2
 						}
 						else
 						{
-							Console.WriteLine("Wrong answer. Type 'Basic', 'Advanced', 'Expert'");
+                            // In case the wrong input is given, restart the loop
+                            Console.WriteLine("Wrong answer. Type 'Basic', 'Advanced', 'Expert'"); 
 							exampleType = Console.ReadLine();
 						}
 					}
@@ -61,26 +68,28 @@ namespace MSO_opdracht_2
 					string filename = Console.ReadLine();
 					while (filename != null)
 					{
-						//For the path finding I used https://stackoverflow.com/questions/15653921/get-current-folder-path
+						//For the path finding we used https://stackoverflow.com/questions/15653921/get-current-folder-path
 						string inputFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", filename + ".txt");
 						inputFilePath = Path.GetFullPath(inputFilePath);
-						//To check if a file exists I used https://www.geeksforgeeks.org/file-exists-method-in-c-sharp-with-examples/
+						//To check if a file exists we used https://www.geeksforgeeks.org/file-exists-method-in-c-sharp-with-examples/
 						if (File.Exists(inputFilePath))
 						{
-							program = translator.TranslateFile(inputFilePath);
+							program = translator.TranslateFile(inputFilePath); // Use the translator to translate the file
 							choice = null;
 							break;
 						}
 						else
 						{
-							Console.WriteLine("This file doesn't exist. Make sure to enter an existing file name, without .txt)");
+                            // In case the wrong input is given, restart the loop
+                            Console.WriteLine("This file doesn't exist. Make sure to enter an existing file name, without .txt)");
 							filename = Console.ReadLine();
 						}
 					}
 				}
 				else
 				{
-					Console.WriteLine("Wrong answer. Type 'Example' or 'Import'");
+                    // In case the wrong input is given, restart the loop
+                    Console.WriteLine("Wrong answer. Type 'Example' or 'Import'");
 					choice = Console.ReadLine();
 				}
 			}
@@ -90,6 +99,7 @@ namespace MSO_opdracht_2
 			{
 				if (choice2 == "Calculate")
 				{
+					// Use the calculator to calculate aspects of the program
 					Console.WriteLine($"The amount of commands of this program is: {calculator.numOfCommands(program)}");
 					Console.WriteLine($"The amount of repeats of this program is: {calculator.numOfRepeats(program)}");
 					Console.WriteLine($"The max level of nesting of this program is: {calculator.maxNestLvl(program)}");
@@ -97,15 +107,18 @@ namespace MSO_opdracht_2
 				}
 				else if (choice2 == "Run")
 				{
+					// Run the program
 					program.Run();
 					break;
 				}
 				else
 				{
-					Console.WriteLine("Wrong answer. Type 'Calculate' or 'Run'");
+                    // In case the wrong input is given, restart the loop
+                    Console.WriteLine("Wrong answer. Type 'Calculate' or 'Run'");
 					choice2 = Console.ReadLine();
 				}
 			}
+			// Exit the application
 			Console.WriteLine("\nPress any key to exit...");
 			Console.ReadKey();
 		}
