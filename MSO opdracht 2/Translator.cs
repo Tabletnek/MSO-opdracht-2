@@ -18,7 +18,7 @@ namespace MSO_opdracht_2
             return TranslateProgram(sr, 0);
         }
 
-        public Program TranslateProgram(StreamReader sr, int nestedLoops)
+        private Program TranslateProgram(StreamReader sr, int nestedLoops)
         {
             Program program = new Program();
             while (line != null)
