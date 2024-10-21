@@ -1,4 +1,5 @@
-﻿Move 10
+﻿BoardSize 100
+Move 10
 Turn right
 Move 10
 Turn right

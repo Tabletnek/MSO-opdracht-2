@@ -11,20 +11,24 @@ namespace MSO_opdracht_2
     public class Translator
     {
         string line; // A line from the text file
+        int size;
 
         // This method starts the StreamReader and initializes the translation process
         public Program TranslateFile(string filePath)
         {
             StreamReader sr = new StreamReader(filePath);
+			line = sr.ReadLine();
+			var splitFirstLine = line.Split(" ");
+			size = int.Parse(splitFirstLine[1]);
             line = sr.ReadLine();
-
-            return TranslateProgram(sr, 0);
+			return TranslateProgram(sr, 0);
         }
 
         // Creates a new program, which is used when initially translating a file and for using Repeat
         public Program TranslateProgram(StreamReader sr, int nestedLoops)
         {
-            Program program = new Program(5);
+
+            Program program = new Program(size);
             while (line != null)
             {
                 if (nestedLoops > 0) // If we're in a Repeat loop, the amount of nestedLoops is larger than 0
