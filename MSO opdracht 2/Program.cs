@@ -9,12 +9,14 @@ namespace MSO_opdracht_2
     {
         public Player player;
         public List<ITask> tasks;
+        public Board board;
 
         // Initializes the player at (0, 0) facing East and creates an empty task list.
-        public Program()
+        public Program(int size)
         {
             this.player = new Player(new Point(0, 0), "East");
             this.tasks = new List<ITask>();
+            this.board = new Board(size);
         }
 
         // Adds a task to the task list
@@ -30,7 +32,7 @@ namespace MSO_opdracht_2
             foreach (var task in tasks)
             {
                 Console.Write(task.ToString());
-                player = task.Execute(player);
+                task.Execute(player, board);
             }
             Console.Write($"\nEnd state ({player.position.X}, {player.position.Y}), facing {player.direction}");
         }

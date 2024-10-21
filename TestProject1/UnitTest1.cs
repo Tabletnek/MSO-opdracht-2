@@ -15,14 +15,14 @@ namespace TestProject1
             calc = new Calculator();
             trans = new Translator();
 
-            basicProgram = new Program();
+            basicProgram = new Program(5);
             basicProgram.AddTask(new Move(10));
             basicProgram.AddTask(new Turn("right"));
 
-            advancedProgram = new Program();
+            advancedProgram = new Program(5);
             advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
 
-            expertProgram = new Program();
+            expertProgram = new Program(5);
             expertProgram.AddTask(new Repeat(3, advancedProgram.tasks));
         }
 

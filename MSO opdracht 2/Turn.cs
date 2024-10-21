@@ -16,7 +16,7 @@ namespace MSO_opdracht_2
         }
 
         // Executes the turn, updating the player's direction based on the current direction and the turn direction.
-        Player ITask.Execute(Player player)
+        void ITask.Execute(Player player, Board board)
         {
             switch (direction)
             {
@@ -25,38 +25,37 @@ namespace MSO_opdracht_2
                     {
                         case "North":
                             player.direction = "East";
-                            return player;
-                        case "East":
+							break;
+						case "East":
                             player.direction = "South";
-                            return player;
-                        case "South":
+							break;
+						case "South":
                             player.direction = "West";
-                            return player;
-                        case "West":
+							break;
+						case "West":
                             player.direction = "North";
-                            return player;
-                    }
-                    return player;
-                case "left":  // Handle turning left based on the current direction.
+							break;
+					}
+					break;
+				case "left":  // Handle turning left based on the current direction.
                     switch (player.direction)
                     {
                         case "North":
                             player.direction = "West";
-                            return player;
+                            break;
                         case "East":
                             player.direction = "North";
-                            return player;
-                        case "South":
+							break;
+						case "South":
                             player.direction = "East";
-                            return player;
-                        case "West":
+							break;
+						case "West":
                             player.direction = "South";
-                            return player;
-                    }
-                    return player;
-            }
-            return player;
-        }
+							break;
+					}
+				break;
+			}
+		}
 
         // Returns a string representation of the turn command.
         public override string ToString()

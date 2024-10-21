@@ -24,7 +24,7 @@ namespace MSO_opdracht_2
         // Creates a new program, which is used when initially translating a file and for using Repeat
         public Program TranslateProgram(StreamReader sr, int nestedLoops)
         {
-            Program program = new Program();
+            Program program = new Program(5);
             while (line != null)
             {
                 if (nestedLoops > 0) // If we're in a Repeat loop, the amount of nestedLoops is larger than 0

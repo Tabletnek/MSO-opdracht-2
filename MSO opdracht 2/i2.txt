@@ -4,5 +4,6 @@
 		Move 2
 	Repeat 2 times
 		Turn right
+		Move 20
 Move 4
 Move 15

@@ -21,30 +21,61 @@ namespace MSO_opdracht_2
 
         // Implementation of the Execute method from the ITask interface
         // It moves the player based on their current direction and the specified amount
-        Player ITask.Execute(Player player)
+        void ITask.Execute(Player player, Board board)
         {
             // Switch statement to update the player's position depending on their current direction
             switch (player.direction)
             {
                 case "North":
                     // Moving north increases the Y-coordinate
-                    player.position = new Point(player.position.X, player.position.Y + amount);
-                    return player;
-                case "East":
-                    // Moving east increases the X-coordinate
-                    player.position = new Point(player.position.X + amount, player.position.Y);
-                    return player;
-                case "South":
-                    // Moving south decreases the Y-coordinate
-                    player.position = new Point(player.position.X, player.position.Y - amount);
-                    return player;
-                case "West":
+                    for (int i = 1; i <= amount; i++)
+                    {
+                        Point newPoint = new Point(player.position.X, player.position.Y + 1);
+                        if (board.insideBoard(newPoint))
+                        {
+                            board.addVisitedPoint(newPoint);
+                            player.position = newPoint;
+                        }        
+					}
+					break;
+				case "East":
+					// Moving east increases the X-coordinate
+					for (int i = 1; i <= amount; i++)
+					{
+						Point newPoint = new Point(player.position.X + 1, player.position.Y);
+						if (board.insideBoard(newPoint))
+						{
+							board.addVisitedPoint(newPoint);
+							player.position = newPoint;
+						}
+						else break;
+					}
+					break;
+				case "South":
+					// Moving south decreases the Y-coordinate
+					for (int i = 1; i <= amount; i++)
+					{
+						Point newPoint = new Point(player.position.X, player.position.Y - 1);
+						if (board.insideBoard(newPoint))
+						{
+							board.addVisitedPoint(newPoint);
+							player.position = newPoint;
+						}
+					}
+					break;
+				case "West":
                     // Moving west decreases the X-coordinate
-                    player.position = new Point(player.position.X - amount, player.position.Y);
-                    return player;
+					for (int i = 1; i <= amount; i++)
+					{
+						Point newPoint = new Point(player.position.X - 1, player.position.Y);
+						if (board.insideBoard(newPoint))
+						{
+							board.addVisitedPoint(newPoint);
+							player.position = newPoint;
+						}
+					}
+					break;
             }
-            // Return the updated player position after moving
-            return player;
         }
 
         // Override of the ToString method to return a string representation of the move command

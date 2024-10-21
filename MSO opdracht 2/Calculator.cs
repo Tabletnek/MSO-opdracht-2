@@ -23,7 +23,7 @@ namespace MSO_opdracht_2
                 if (task is Repeat)
                 {
                     Repeat currentRepeat = task as Repeat;  // Cast the current task as Repeat
-                    Program repeatProgram = new Program();  // Create a new program for the nested tasks
+                    Program repeatProgram = new Program(prog.board.size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
                     foreach (var repeatTask in currentRepeat.tasks)
@@ -48,7 +48,7 @@ namespace MSO_opdracht_2
                 if (task is Repeat)
                 {
                     Repeat currentRepeat = task as Repeat;  // Cast the current task as Repeat
-                    Program repeatProgram = new Program();  // Create a new program for the nested tasks
+                    Program repeatProgram = new Program(prog.board.size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
                     foreach (var repeatTask in currentRepeat.tasks)
@@ -80,7 +80,7 @@ namespace MSO_opdracht_2
                 {
                     number++;  // Increment for the current Repeat block.
                     Repeat currentRepeat = task as Repeat;  // Cast the current task as Repeat
-                    Program repeatProgram = new Program();  // Create a new program for the nested tasks
+                    Program repeatProgram = new Program(prog.board.size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
                     foreach (var repeatTask in currentRepeat.tasks)

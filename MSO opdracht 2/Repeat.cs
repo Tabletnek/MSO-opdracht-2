@@ -22,14 +22,13 @@ namespace MSO_opdracht_2
         }
 
         // Executes the tasks the specified number of times.
-        Player ITask.Execute(Player player)
+        void ITask.Execute(Player player, Board board)
         {
             for (int i = 0; i < amount; i++)
             {
                 foreach (ITask task in tasks)
-                    player = task.Execute(player);
+                    task.Execute(player, board);
             }
-            return player; // Return the updated player after executing the tasks in the loop
         }
 
         // Returns a string representation of the repeated tasks.

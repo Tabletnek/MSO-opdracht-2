@@ -10,19 +10,19 @@ namespace MSO_opdracht_2
 		public static void Main(string[] args)
 		{
 			// Create instances of classes we use
-			Program program = new Program(); // Replaced later with the program we want to use
+			Program program = new Program(5); // Replaced later with the program we want to use
 			Translator translator = new Translator();
 			Calculator calculator = new Calculator();
 
 			// Create the Example Programs
-			Program basicProgram = new Program();
+			Program basicProgram = new Program(10);
 			basicProgram.AddTask(new Move(10));
-			basicProgram.AddTask(new Turn("right"));
+			basicProgram.AddTask(new Turn("left"));
 
-			Program advancedProgram = new Program();
+			Program advancedProgram = new Program(10);
 			advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
 
-			Program expertProgram = new Program();
+			Program expertProgram = new Program(10);
 			expertProgram.AddTask(new Repeat(3, advancedProgram.tasks));
 
 			// Start the conversation with the user
