@@ -1,0 +1,5 @@
+BoardSize 30
+Repeat 3 times
+	Repeat 4 times
+		Move 10
+		Turn right
