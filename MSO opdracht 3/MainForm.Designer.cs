@@ -30,11 +30,15 @@
 		{
 			components = new System.ComponentModel.Container();
 			button1 = new Button();
-			textBox = new Label();
+			textBox = new TextBox();
 			loadProgramBox = new ComboBox();
 			toolTip = new ToolTip(components);
 			runButton = new Button();
 			calculateButton = new Button();
+			turnButton = new Button();
+			dropLabel = new TextBox();
+			moveButton = new Button();
+			repeatButton = new Button();
 			SuspendLayout();
 			// 
 			// button1
@@ -49,9 +53,13 @@
 			// 
 			// textBox
 			// 
-			textBox.Location = new Point(203, 145);
+			textBox.BorderStyle = BorderStyle.FixedSingle;
+			textBox.Location = new Point(194, 145);
+			textBox.Multiline = true;
 			textBox.Name = "textBox";
-			textBox.Size = new Size(585, 246);
+			textBox.ReadOnly = true;
+			textBox.ScrollBars = ScrollBars.Vertical;
+			textBox.Size = new Size(568, 605);
 			textBox.TabIndex = 1;
 			// 
 			// loadProgramBox
@@ -90,29 +98,95 @@
 			calculateButton.UseVisualStyleBackColor = true;
 			calculateButton.Click += calculateButton_Click;
 			// 
-			// Programming learning
+			// turnButton
+			// 
+			turnButton.BackColor = Color.Blue;
+			turnButton.BackgroundImageLayout = ImageLayout.Zoom;
+			turnButton.Font = new Font("Segoe UI", 30F);
+			turnButton.ForeColor = Color.White;
+			turnButton.Location = new Point(96, 781);
+			turnButton.Name = "turnButton";
+			turnButton.Size = new Size(256, 140);
+			turnButton.TabIndex = 5;
+			turnButton.Text = "Turn";
+			turnButton.UseVisualStyleBackColor = false;
+			turnButton.MouseDown += turnButton_MouseDown;
+			// 
+			// dropLabel
+			// 
+			dropLabel.AllowDrop = true;
+			dropLabel.BackColor = SystemColors.ActiveCaption;
+			dropLabel.Font = new Font("Segoe UI", 20F);
+			dropLabel.Location = new Point(784, 195);
+			dropLabel.Multiline = true;
+			dropLabel.Name = "dropLabel";
+			dropLabel.ReadOnly = true;
+			dropLabel.ScrollBars = ScrollBars.Vertical;
+			dropLabel.Size = new Size(553, 555);
+			dropLabel.TabIndex = 6;
+			dropLabel.DragDrop += dropLabel_DragDrop;
+			dropLabel.DragEnter += dropLabel_DragEnter;
+			// 
+			// moveButton
+			// 
+			moveButton.BackColor = Color.Blue;
+			moveButton.BackgroundImageLayout = ImageLayout.Zoom;
+			moveButton.Font = new Font("Segoe UI", 30F);
+			moveButton.ForeColor = Color.White;
+			moveButton.Location = new Point(400, 781);
+			moveButton.Name = "moveButton";
+			moveButton.Size = new Size(256, 140);
+			moveButton.TabIndex = 7;
+			moveButton.Text = "Move";
+			moveButton.UseVisualStyleBackColor = false;
+			moveButton.MouseDown += moveButton_MouseDown;
+			// 
+			// repeatButton
+			// 
+			repeatButton.BackColor = Color.Blue;
+			repeatButton.BackgroundImageLayout = ImageLayout.Zoom;
+			repeatButton.Font = new Font("Segoe UI", 30F);
+			repeatButton.ForeColor = Color.White;
+			repeatButton.Location = new Point(697, 781);
+			repeatButton.Name = "repeatButton";
+			repeatButton.Size = new Size(256, 140);
+			repeatButton.TabIndex = 8;
+			repeatButton.Text = "Repeat";
+			repeatButton.UseVisualStyleBackColor = false;
+			repeatButton.MouseDown += repeatButton_MouseDown;
+			// 
+			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1600, 1000);
+			Controls.Add(repeatButton);
+			Controls.Add(moveButton);
+			Controls.Add(dropLabel);
+			Controls.Add(turnButton);
 			Controls.Add(calculateButton);
 			Controls.Add(runButton);
 			Controls.Add(loadProgramBox);
 			Controls.Add(textBox);
 			Controls.Add(button1);
-			Name = "Programming learning";
+			Name = "MainForm";
 			Text = "Programming learning";
 			Load += MainForm_Load;
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
 
 		private Button button1;
-		private Label textBox;
+		private TextBox textBox;
 		private ComboBox loadProgramBox;
 		private ToolTip toolTip;
 		private Button runButton;
 		private Button calculateButton;
+		private Button turnButton;
+		private TextBox dropLabel;
+		private Button moveButton;
+		private Button repeatButton;
 	}
 }

@@ -3,7 +3,7 @@ Repeat 4 times
 	Move 10
 	Repeat 3 times
 		Move 2
-	Repeat 2 times
+	Repeat 20 times
 		Turn right
 		Move 20
 Move 4

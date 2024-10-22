@@ -9,13 +9,14 @@ using System.Transactions;
 namespace MSO_opdracht_3
 {
     // The Repeat class implements the ITask interface and repeats a set of tasks a given number of times
-    public class Repeat : ITask
+    public class Repeat : IRepeat
     {
         public int amount;  // Number of times to repeat the tasks
-        public List<ITask> tasks;  // List of tasks to repeat
+		public List<ITask> tasks { get; private set; }  // List of tasks to repeat
 
-        // Constructor initializes the repeat task with a specified amount and tasks
-        public Repeat(int amount, List<ITask> tasks)
+
+		// Constructor initializes the repeat task with a specified amount and tasks
+		public Repeat(int amount, List<ITask> tasks)
         {
             this.tasks = tasks;
             this.amount = amount;
@@ -42,5 +43,10 @@ namespace MSO_opdracht_3
             }
             return result;
         }
-    }
+
+		public void Execute(Player player, Board board)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

@@ -20,9 +20,8 @@ namespace MSO_opdracht_3
                 number++;  // Increment for each task
 
                 // If the task is a Repeat block, calculate the amount of tasks it contains
-                if (task is Repeat)
+                if (task is IRepeat currentRepeat)
                 {
-                    Repeat currentRepeat = task as Repeat;  // Cast the current task as Repeat
                     TaskProgram repeatProgram = new TaskProgram(prog.board.size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
@@ -45,9 +44,8 @@ namespace MSO_opdracht_3
             foreach (var task in prog.tasks)
             {
                 // If the task is a Repeat block, check the nesting level
-                if (task is Repeat)
+                if (task is IRepeat currentRepeat)
                 {
-                    Repeat currentRepeat = task as Repeat;  // Cast the current task as Repeat
                     TaskProgram repeatProgram = new TaskProgram(prog.board.size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
@@ -76,10 +74,9 @@ namespace MSO_opdracht_3
             foreach (var task in prog.tasks)
             {
                 // If the task is a Repeat block, count it and calculate for the content of the loop
-                if (task is Repeat)
+                if (task is IRepeat currentRepeat)
                 {
                     number++;  // Increment for the current Repeat block.
-                    Repeat currentRepeat = task as Repeat;  // Cast the current task as Repeat
                     TaskProgram repeatProgram = new TaskProgram(prog.board.size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program

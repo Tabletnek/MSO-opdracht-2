@@ -31,9 +31,9 @@ namespace MSO_opdracht_3
                     for (int i = 1; i <= amount; i++)
                     {
                         Point newPoint = new Point(player.position.X, player.position.Y + 1);
-                        if (board.insideBoard(newPoint))
+                        if (board.InsideBoard(newPoint))
                         {
-                            board.addVisitedPoint(newPoint);
+                            board.AddVisitedPoint(newPoint);
                             player.position = newPoint;
                         }        
 					}
@@ -43,9 +43,9 @@ namespace MSO_opdracht_3
 					for (int i = 1; i <= amount; i++)
 					{
 						Point newPoint = new Point(player.position.X + 1, player.position.Y);
-						if (board.insideBoard(newPoint))
+						if (board.InsideBoard(newPoint))
 						{
-							board.addVisitedPoint(newPoint);
+							board.AddVisitedPoint(newPoint);
 							player.position = newPoint;
 						}
 						else break;
@@ -56,9 +56,9 @@ namespace MSO_opdracht_3
 					for (int i = 1; i <= amount; i++)
 					{
 						Point newPoint = new Point(player.position.X, player.position.Y - 1);
-						if (board.insideBoard(newPoint))
+						if (board.InsideBoard(newPoint))
 						{
-							board.addVisitedPoint(newPoint);
+							board.AddVisitedPoint(newPoint);
 							player.position = newPoint;
 						}
 					}
@@ -68,9 +68,9 @@ namespace MSO_opdracht_3
 					for (int i = 1; i <= amount; i++)
 					{
 						Point newPoint = new Point(player.position.X - 1, player.position.Y);
-						if (board.insideBoard(newPoint))
+						if (board.InsideBoard(newPoint))
 						{
-							board.addVisitedPoint(newPoint);
+							board.AddVisitedPoint(newPoint);
 							player.position = newPoint;
 						}
 					}

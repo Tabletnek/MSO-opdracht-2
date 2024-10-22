@@ -33,10 +33,10 @@ namespace MSO_opdracht_3
 			string result = "";
 			foreach (var task in tasks)
 			{
-				result += task.ToString();
 				task.Execute(player, board);
+				result += task.ToString();
 			}
-			result +=($"\nEnd state ({player.position.X}, {player.position.Y}), facing {player.direction}");
+			result +=($"\r\nEnd state ({player.position.X}, {player.position.Y}), facing {player.direction}");
 			return result;
 		}
 	}
