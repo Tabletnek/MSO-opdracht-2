@@ -1,0 +1,7 @@
+﻿BoardSize 100
+Move 1
+Turn left
+Move 1
+RepeatUntil WallAhead
+	Turn right
+	

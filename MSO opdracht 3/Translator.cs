@@ -51,7 +51,18 @@ namespace MSO_opdracht_3
                         program.AddTask(new Turn(split[1])); break;
                     case "Repeat":
                         program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks)); break; // Creates a new program to use for our loop
-                }
+                    case "RepeatUntil":
+                        string condition = split[1];
+                        switch (condition) 
+                        {
+							case "WallAhead":
+								program.AddTask(new RepeatWall(TranslateProgram(sr, nestedLoops + 1).tasks)); break; // Creates a new program to use for our loop
+                            case "GridEdge":
+								program.AddTask(new RepeatEdge(TranslateProgram(sr, nestedLoops + 1).tasks)); break; // Creates a new program to use for our loop
+						}
+                        break;
+
+				}
             }
             return program;  // If we reached the end of the text file, we return the program
         }

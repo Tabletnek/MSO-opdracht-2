@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Microsoft.VisualBasic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -21,11 +20,12 @@ namespace MSO_opdracht_3
 		private Calculator calculator;
 		private TaskProgram basicProgram = new TaskProgram(10);
 		private TaskProgram advancedProgram = new TaskProgram(10);
-		private TaskProgram expertProgram = new TaskProgram(100);
+		private TaskProgram expertProgram = new TaskProgram(1000);
 
 		public MainForm()
 		{
 			InitializeComponent();
+
 			translator = new Translator();
 			calculator = new Calculator();
 
@@ -146,6 +146,79 @@ namespace MSO_opdracht_3
 			else
 				e.Effect = DragDropEffects.None;
 		}
+
+		private void FlowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.StringFormat))
+				e.Effect = DragDropEffects.Copy;
+			else
+				e.Effect = DragDropEffects.None;
+		}
+
+		//https://www.youtube.com/watch?v=VeapnO7b2gI and https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.flowlayoutpanel?view=windowsdesktop-8.0
+		private void FlowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+		{
+			string text = (string)e.Data.GetData(DataFormats.StringFormat);
+			string input;
+
+			switch (text)
+			{
+				case "Move":
+					input = Interaction.InputBox("How many steps?\nType any number, e.g 5", "Move");
+					if (input != null)
+						if (int.TryParse(input, out int number))
+							text += $" {number}";
+						else return;
+					break;
+				case "Turn":
+					input = Interaction.InputBox("In what direction?\nType 'left' or 'right'", "Turn");
+					if (input != null)
+						if (input == "right" || input == "left")
+							text += $" {input}";
+						else return;
+					break;
+				case "Repeat":
+					input = Interaction.InputBox("How many times?\nType any number, e.g 5", "Repeat");
+					if (input != null)
+						if (int.TryParse(input, out int number))
+							text += $" {number}";
+					else return;
+					break;
+			}
+
+			Panel newPanel = new Panel();
+			newPanel.Size = new Size(400, 80);
+			newPanel.BackColor = Color.LightGray;
+			newPanel.BorderStyle = BorderStyle.FixedSingle;
+
+			Label taskLabel = new Label();
+			taskLabel.Text = text;
+			taskLabel.Font = new Font("Segoe UI", 15F);
+			taskLabel.ForeColor = Color.Black;
+			taskLabel.Dock = DockStyle.Fill;
+			taskLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+			Button removeButton = new Button();
+			removeButton.Size = new Size(30, 20);
+			removeButton.Text = "X";
+			removeButton.Dock = DockStyle.Right;
+			removeButton.BackColor = Color.Red;
+			removeButton.ForeColor = Color.White;
+			removeButton.Visible = true;
+
+
+			removeButton.Click += (s, e) =>
+			{
+				flowLayoutPanel1.Controls.Remove(newPanel);
+			};
+
+			newPanel.Controls.Add(taskLabel);
+			newPanel.Controls.Add(removeButton);
+
+			flowLayoutPanel1.Controls.Add(newPanel);
+		}
+
+
 
 		//Observer patroon gebruiken om deze dropLabel te bekijken en aan de hand daarvan echte tasks toe te voegen.
 		private void dropLabel_DragDrop(object sender, DragEventArgs e)
