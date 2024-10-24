@@ -39,18 +39,8 @@
 			dropLabel = new TextBox();
 			moveButton = new Button();
 			repeatButton = new Button();
-			flowLayoutPanel1 = new FlowLayoutPanel();
+			flowLayoutPanel1 = new ProgramBuilder();
 			SuspendLayout();
-			// 
-			// button1
-			// 
-			button1.Location = new Point(203, 78);
-			button1.Name = "button1";
-			button1.Size = new Size(367, 34);
-			button1.TabIndex = 0;
-			button1.Text = "button1";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += button1_Click;
 			// 
 			// textBox
 			// 
@@ -159,7 +149,6 @@
 			// 
 			// flowLayoutPanel1
 			// 
-			flowLayoutPanel1.AllowDrop = true;
 			flowLayoutPanel1.AutoScroll = true;
 			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
 			flowLayoutPanel1.Location = new Point(806, 12);
@@ -167,8 +156,6 @@
 			flowLayoutPanel1.Size = new Size(428, 763);
 			flowLayoutPanel1.TabIndex = 9;
 			flowLayoutPanel1.WrapContents = false;
-			flowLayoutPanel1.DragDrop += FlowLayoutPanel1_DragDrop;
-			flowLayoutPanel1.DragEnter += FlowLayoutPanel1_DragEnter;
 			// 
 			// MainForm
 			// 
@@ -187,7 +174,6 @@
 			Controls.Add(button1);
 			Name = "MainForm";
 			Text = "Programming learning";
-			Load += MainForm_Load;
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -204,6 +190,6 @@
 		private TextBox dropLabel;
 		private Button moveButton;
 		private Button repeatButton;
-		private FlowLayoutPanel flowLayoutPanel1;
+		private ProgramBuilder flowLayoutPanel1;
 	}
 }
