@@ -129,43 +129,5 @@ namespace MSO_opdracht_3
 			//https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8
 			repeatButton.DoDragDrop(repeatButton.Text, DragDropEffects.Copy | DragDropEffects.Move);
 		}
-
-		private void dropLabel_DragEnter(object sender, DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(DataFormats.Text))
-				e.Effect = DragDropEffects.Copy;
-			else
-				e.Effect = DragDropEffects.None;
-		}
-
-		//Observer patroon gebruiken om deze dropLabel te bekijken en aan de hand daarvan echte tasks toe te voegen.
-		private void dropLabel_DragDrop(object sender, DragEventArgs e)
-		{
-			string text = e.Data.GetData(DataFormats.Text).ToString();
-			string input = null;
-
-			//https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualbasic.interaction.inputbox?view=net-8.0
-			switch (text)
-			{
-				case "Move":
-					input = Interaction.InputBox("How many steps?\nType any number, e.g 5", "Move");
-					if (input != null)
-						if (int.TryParse(input, out int number))
-							dropLabel.Text += $"{text} {number} \r\n";
-					break;
-				case "Turn":
-					input = Interaction.InputBox("In what direction?\nType 'left' or 'right'", "Turn");
-					if (input != null)
-						if (input == "right" ||  input == "left")
-							dropLabel.Text += $"{text} {input} \r\n";
-					break;
-				case "Repeat":
-					input = Interaction.InputBox("How many times?\nType any number, e.g 5", "Repeat");
-					if (input != null)
-						if (int.TryParse(input, out int number))
-							dropLabel.Text += $"{text} {number} \r\n";
-					break;
-			}
-		}
 	}
 }

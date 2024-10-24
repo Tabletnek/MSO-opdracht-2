@@ -20,6 +20,7 @@ namespace MSO_opdracht_3
 			this.AllowDrop = true;
 			this.DragEnter += FlowLayoutPanel1_DragEnter;
 			this.DragDrop += FlowLayoutPanel1_DragDrop;
+			this.BorderStyle = BorderStyle.FixedSingle;
 		}
 
 		private void FlowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
@@ -57,6 +58,7 @@ namespace MSO_opdracht_3
 					this.Controls.SetChildIndex(droppedPanel, this.Controls.Count - 1);
 				}
 			}
+
 			//Add a new task to the ProgramBuilder using the move,turn and repeat button
 			else if (e.Data.GetDataPresent(DataFormats.StringFormat))
 			{

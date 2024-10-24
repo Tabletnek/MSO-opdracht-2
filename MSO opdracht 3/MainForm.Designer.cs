@@ -29,28 +29,26 @@
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			button1 = new Button();
 			textBox = new TextBox();
 			loadProgramBox = new ComboBox();
 			toolTip = new ToolTip(components);
 			runButton = new Button();
 			calculateButton = new Button();
 			turnButton = new Button();
-			dropLabel = new TextBox();
 			moveButton = new Button();
 			repeatButton = new Button();
-			flowLayoutPanel1 = new ProgramBuilder();
+			programBuilder = new ProgramBuilder();
 			SuspendLayout();
 			// 
 			// textBox
 			// 
 			textBox.BorderStyle = BorderStyle.FixedSingle;
-			textBox.Location = new Point(194, 145);
+			textBox.Location = new Point(240, 12);
 			textBox.Multiline = true;
 			textBox.Name = "textBox";
 			textBox.ReadOnly = true;
 			textBox.ScrollBars = ScrollBars.Vertical;
-			textBox.Size = new Size(568, 605);
+			textBox.Size = new Size(568, 738);
 			textBox.TabIndex = 1;
 			// 
 			// loadProgramBox
@@ -95,7 +93,7 @@
 			turnButton.BackgroundImageLayout = ImageLayout.Zoom;
 			turnButton.Font = new Font("Segoe UI", 30F);
 			turnButton.ForeColor = Color.White;
-			turnButton.Location = new Point(96, 781);
+			turnButton.Location = new Point(646, 781);
 			turnButton.Name = "turnButton";
 			turnButton.Size = new Size(256, 140);
 			turnButton.TabIndex = 5;
@@ -103,29 +101,13 @@
 			turnButton.UseVisualStyleBackColor = false;
 			turnButton.MouseDown += turnButton_MouseDown;
 			// 
-			// dropLabel
-			// 
-			dropLabel.AllowDrop = true;
-			dropLabel.BackColor = SystemColors.ActiveCaption;
-			dropLabel.Enabled = false;
-			dropLabel.Font = new Font("Segoe UI", 20F);
-			dropLabel.Location = new Point(784, 195);
-			dropLabel.Multiline = true;
-			dropLabel.Name = "dropLabel";
-			dropLabel.ReadOnly = true;
-			dropLabel.ScrollBars = ScrollBars.Vertical;
-			dropLabel.Size = new Size(553, 555);
-			dropLabel.TabIndex = 6;
-			dropLabel.DragDrop += dropLabel_DragDrop;
-			dropLabel.DragEnter += dropLabel_DragEnter;
-			// 
 			// moveButton
 			// 
 			moveButton.BackColor = Color.Blue;
 			moveButton.BackgroundImageLayout = ImageLayout.Zoom;
 			moveButton.Font = new Font("Segoe UI", 30F);
 			moveButton.ForeColor = Color.White;
-			moveButton.Location = new Point(400, 781);
+			moveButton.Location = new Point(943, 781);
 			moveButton.Name = "moveButton";
 			moveButton.Size = new Size(256, 140);
 			moveButton.TabIndex = 7;
@@ -139,7 +121,7 @@
 			repeatButton.BackgroundImageLayout = ImageLayout.Zoom;
 			repeatButton.Font = new Font("Segoe UI", 30F);
 			repeatButton.ForeColor = Color.White;
-			repeatButton.Location = new Point(697, 781);
+			repeatButton.Location = new Point(1230, 781);
 			repeatButton.Name = "repeatButton";
 			repeatButton.Size = new Size(256, 140);
 			repeatButton.TabIndex = 8;
@@ -147,31 +129,31 @@
 			repeatButton.UseVisualStyleBackColor = false;
 			repeatButton.MouseDown += repeatButton_MouseDown;
 			// 
-			// flowLayoutPanel1
+			// programBuilder
 			// 
-			flowLayoutPanel1.AutoScroll = true;
-			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-			flowLayoutPanel1.Location = new Point(806, 12);
-			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(428, 763);
-			flowLayoutPanel1.TabIndex = 9;
-			flowLayoutPanel1.WrapContents = false;
+			programBuilder.AllowDrop = true;
+			programBuilder.AutoScroll = true;
+			programBuilder.BorderStyle = BorderStyle.FixedSingle;
+			programBuilder.FlowDirection = FlowDirection.TopDown;
+			programBuilder.Location = new Point(886, 12);
+			programBuilder.Name = "programBuilder";
+			programBuilder.Size = new Size(600, 738);
+			programBuilder.TabIndex = 9;
+			programBuilder.WrapContents = false;
 			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1600, 1000);
-			Controls.Add(flowLayoutPanel1);
+			Controls.Add(programBuilder);
 			Controls.Add(repeatButton);
 			Controls.Add(moveButton);
-			Controls.Add(dropLabel);
 			Controls.Add(turnButton);
 			Controls.Add(calculateButton);
 			Controls.Add(runButton);
 			Controls.Add(loadProgramBox);
 			Controls.Add(textBox);
-			Controls.Add(button1);
 			Name = "MainForm";
 			Text = "Programming learning";
 			ResumeLayout(false);
@@ -179,17 +161,14 @@
 		}
 
 		#endregion
-
-		private Button button1;
 		private TextBox textBox;
 		private ComboBox loadProgramBox;
 		private ToolTip toolTip;
 		private Button runButton;
 		private Button calculateButton;
 		private Button turnButton;
-		private TextBox dropLabel;
 		private Button moveButton;
 		private Button repeatButton;
-		private ProgramBuilder flowLayoutPanel1;
+		private ProgramBuilder programBuilder;
 	}
 }
