@@ -13,19 +13,19 @@ namespace MSO_opdracht_3
 	//Also https://www.youtube.com/watch?app=desktop&v=VeapnO7b2gI was used.
 
 	public class ProgramBuilder : FlowLayoutPanel
-	{ 
-
+	{
 		public ProgramBuilder()
 		{
 			this.AllowDrop = true;
 			this.DragEnter += FlowLayoutPanel1_DragEnter;
 			this.DragDrop += FlowLayoutPanel1_DragDrop;
 			this.BorderStyle = BorderStyle.FixedSingle;
+			this.AutoScroll = true; // Enable scrolling if too many panels
 		}
 
 		private void FlowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(Panel)))
+			if (e.Data.GetDataPresent(typeof(Panel)) || e.Data.GetDataPresent(typeof(RepeatPanel)))
 			{
 				e.Effect = DragDropEffects.Move;
 			}
@@ -41,7 +41,6 @@ namespace MSO_opdracht_3
 
 		private void FlowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
 		{
-			//Check where a panel was placed and look what panel was under the droppoint, to rearrange them.
 			if (e.Data.GetDataPresent(typeof(Panel)))
 			{
 				Panel droppedPanel = (Panel)e.Data.GetData(typeof(Panel));
@@ -58,8 +57,23 @@ namespace MSO_opdracht_3
 					this.Controls.SetChildIndex(droppedPanel, this.Controls.Count - 1);
 				}
 			}
+			else if (e.Data.GetDataPresent(typeof(RepeatPanel)))
+			{
+				RepeatPanel droppedPanel = (RepeatPanel)e.Data.GetData(typeof(RepeatPanel));
+				Point dropPoint = this.PointToClient(new Point(e.X, e.Y));
+				Control controlUnderMouse = this.GetChildAtPoint(dropPoint);
 
-			//Add a new task to the ProgramBuilder using the move,turn and repeat button
+				// Check if the panel should be rearranged
+				if (controlUnderMouse != null && controlUnderMouse != droppedPanel)
+				{
+					int newIndex = this.Controls.GetChildIndex(controlUnderMouse);
+					this.Controls.SetChildIndex(droppedPanel, newIndex);
+				}
+				else if (controlUnderMouse == null)
+				{
+					this.Controls.SetChildIndex(droppedPanel, this.Controls.Count - 1);
+				}
+			}
 			else if (e.Data.GetDataPresent(DataFormats.StringFormat))
 			{
 				string text = (string)e.Data.GetData(DataFormats.StringFormat);
@@ -67,7 +81,6 @@ namespace MSO_opdracht_3
 
 				switch (text)
 				{
-					//Let the user decide how many steps to take, what direction to turn or how many times to repeat.
 					case "Move":
 						input = Interaction.InputBox("How many steps?\nType any number, e.g 5", "Move");
 						if (!string.IsNullOrEmpty(input) && int.TryParse(input, out int moveNumber))
@@ -88,56 +101,62 @@ namespace MSO_opdracht_3
 						break;
 				}
 
-				AddTaskPanel(text);  // Add a new task panel based on the dragged text
+				AddTaskPanel(text); // Add a new task panel based on the dragged text
 			}
 		}
 
-		//Create a new panel, with a text and a remove button and make it possible to drag it
 		private void AddTaskPanel(string text)
 		{
-			Panel newPanel = new Panel
+			if (text.StartsWith("Repeat"))
 			{
-				Size = new Size(400, 80),
-				BackColor = Color.LightGray,
-				BorderStyle = BorderStyle.FixedSingle
-			};
-
-			newPanel.MouseDown += MouseDown;
-
-			Label taskLabel = new Label
+				RepeatPanel repeatPanel = new RepeatPanel(text);
+				this.Controls.Add(repeatPanel);
+			}
+			else
 			{
-				Text = text,
-				Font = new Font("Segoe UI", 15F),
-				ForeColor = Color.Black,
-				BackColor = Color.Transparent, 
-				AutoSize = true, 
-				Dock = DockStyle.None,
-				Location = new Point(10, 10),
-				Padding = new Padding(5) 
-			};
+				Panel newPanel = new Panel
+				{
+					Size = new Size(400, 80),
+					BackColor = Color.MediumPurple,
+					BorderStyle = BorderStyle.FixedSingle
+				};
 
-			Button removeButton = new Button
-			{
-				Size = new Size(30, 20),
-				Text = "X",
-				Dock = DockStyle.Right,
-				BackColor = Color.Red,
-				ForeColor = Color.White,
-				Visible = true
-			};
+				newPanel.MouseDown += MouseDown;
 
-			removeButton.Click += (s, e) =>
-			{
-				this.Controls.Remove(newPanel);
-			};
+				Label taskLabel = new Label
+				{
+					Text = text,
+					Font = new Font("Segoe UI", 15F),
+					ForeColor = Color.White,
+					BackColor = Color.Transparent,
+					AutoSize = true,
+					Dock = DockStyle.None,
+					Location = new Point(10, 10),
+					Padding = new Padding(5)
+				};
 
-			newPanel.Controls.Add(taskLabel);
-			newPanel.Controls.Add(removeButton);
+				Button removeButton = new Button
+				{
+					Size = new Size(30, 20),
+					Text = "X",
+					Dock = DockStyle.Right,
+					BackColor = Color.Red,
+					ForeColor = Color.White,
+					Visible = true
+				};
 
-			this.Controls.Add(newPanel);
+				removeButton.Click += (s, e) =>
+				{
+					newPanel.Parent.Controls.Remove(newPanel);
+				};
+
+				newPanel.Controls.Add(taskLabel);
+				newPanel.Controls.Add(removeButton);
+
+				this.Controls.Add(newPanel);
+			}
 		}
 
-		//Make Dragging possible for the panels
 		private void MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
@@ -147,4 +166,3 @@ namespace MSO_opdracht_3
 		}
 	}
 }
-	
