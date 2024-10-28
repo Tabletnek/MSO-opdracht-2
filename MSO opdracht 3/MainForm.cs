@@ -17,7 +17,8 @@ namespace MSO_opdracht_3
 	public partial class MainForm : Form
 	{
 		TaskProgram chosenProgram = null;
-		private Translator translator;
+		private FileTranslator translator;
+		private BuilderTranslator builderTranslator;
 		private Calculator calculator;
 		private TaskProgram basicProgram = new TaskProgram(10);
 		private TaskProgram advancedProgram = new TaskProgram(10);
@@ -27,7 +28,8 @@ namespace MSO_opdracht_3
 		{
 			InitializeComponent();
 
-			translator = new Translator();
+			translator = new FileTranslator();
+			builderTranslator = new BuilderTranslator();
 			calculator = new Calculator();
 
 			// Create the Example Programs
@@ -43,6 +45,7 @@ namespace MSO_opdracht_3
 			expertProgram.AddTask(new RepeatWall(basicProgram.tasks));
 		}
 
+		//Load a program using one of the examples or one out of a textfile
 		private void loadProgramBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			switch (loadProgramBox.SelectedItem)
@@ -57,32 +60,36 @@ namespace MSO_opdracht_3
 					chosenProgram = expertProgram;
 					break;
 				case "from file...":
-					{
-						// I used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.initialdirectory?view=windowsdesktop-8.0
-						// and https://stackoverflow.com/questions/21769921/does-openfiledialog-initialdirectory-not-accept-relative-path
-						// Logic to open file dialog and load a program
-						OpenFileDialog openFileDialog = new OpenFileDialog
-						{
-							Filter = "Text Files (*.txt)|*.txt",
-							Title = "Select a Program File",
-							InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\"))
-						};
-
-						if (openFileDialog.ShowDialog() == DialogResult.OK)
-						{
-							string filePath = openFileDialog.FileName;
-							string fileName = Path.GetFileName(filePath);
-
-							loadProgramBox.Text = fileName;
-							chosenProgram = translator.TranslateFile(filePath);
-							MessageBox.Show("Task program imported successfully.");
-
-						}
-					}
+					LoadProgramFromFile();
 					break;
 			}
 		}
 
+		//Show the file explorer to choose a text file to load
+		// I used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.initialdirectory?view=windowsdesktop-8.0
+		// and https://stackoverflow.com/questions/21769921/does-openfiledialog-initialdirectory-not-accept-relative-path
+		private void LoadProgramFromFile()
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog
+			{
+				Filter = "Text Files (*.txt)|*.txt",
+				Title = "Select a Program File",
+				InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\"))
+			};
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				string filePath = openFileDialog.FileName;
+				string fileName = Path.GetFileName(filePath);
+
+				loadProgramBox.Text = fileName;
+				chosenProgram = translator.TranslateFile(filePath);
+				MessageBox.Show("Task program imported successfully.");
+			}
+		}
+
+
+		//Run the current loaded program (if one is loaded) and show the output in the text box
 		private void runButton_Click(object sender, EventArgs e)
 		{
 			if (chosenProgram != null)
@@ -95,6 +102,34 @@ namespace MSO_opdracht_3
 			}
 		}
 
+		//Make sure only numbers can be entered
+		//https://stackoverflow.com/questions/463299/how-do-i-make-a-textbox-that-only-accepts-numbers
+		private void sizeBox_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+			{
+				e.Handled = true;
+			}
+		}
+
+		//Load the current program made using the builder blocks.
+		private void runBlock_Click(object sender, EventArgs e)
+		{
+			if (int.TryParse(sizeBox.Text, out int programSize))
+			{
+				chosenProgram = builderTranslator.TranslateBuilder(programBuilder, programSize);
+				MessageBox.Show("Program built successfully from panels.");
+
+			}
+			else 
+			{
+				MessageBox.Show("Please enter a valid program size.");
+				return;
+			}
+
+		}
+
+		//Calculate the amount of commands, repeats and nesting of the current loaded program
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
 			if (chosenProgram != null)
@@ -113,21 +148,11 @@ namespace MSO_opdracht_3
 			}
 		}
 
-		private void turnButton_MouseDown(object sender, MouseEventArgs e)
+		//Make the buttons draggable
+		private void draggable_MouseDown(object sender, MouseEventArgs e)
 		{
-			//https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8
-			turnButton.DoDragDrop(turnButton.Text, DragDropEffects.Copy | DragDropEffects.Move);
-		}
-
-		private void moveButton_MouseDown(object sender, MouseEventArgs e)
-		{
-			//https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8
-			moveButton.DoDragDrop(moveButton.Text, DragDropEffects.Copy | DragDropEffects.Move);
-		}
-		private void repeatButton_MouseDown(object sender, MouseEventArgs e)
-		{
-			//https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8
-			repeatButton.DoDragDrop(repeatButton.Text, DragDropEffects.Copy | DragDropEffects.Move);
+			Button b = (Button)sender;
+				b.DoDragDrop(b.Text, DragDropEffects.Copy | DragDropEffects.Move);
 		}
 	}
 }

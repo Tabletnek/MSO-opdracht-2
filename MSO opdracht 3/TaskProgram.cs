@@ -30,6 +30,9 @@ namespace MSO_opdracht_3
 		// Executes each task and prints the final state of the player
 		public string Run()
 		{
+			player.position = new Point(0, 0); player.direction = "East";
+			board.visitedPoints.Clear();
+			//reset the player and board before running agai
 			string result = "";
 			foreach (var task in tasks)
 			{

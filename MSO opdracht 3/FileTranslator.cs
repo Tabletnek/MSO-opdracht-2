@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MSO_opdracht_3
 {
     // The Translator class translates a text file to a program
-    public class Translator
+    public class FileTranslator
     {
         string line; // A line from the text file
         int size;

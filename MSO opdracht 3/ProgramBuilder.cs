@@ -99,6 +99,12 @@ namespace MSO_opdracht_3
 							text += $" {repeatNumber} times";
 						else return;
 						break;
+					case "RepeatUntil":
+						input = Interaction.InputBox("What condition?\nType WallAhead or GridEdge", "RepeatUntil");
+						if (!string.IsNullOrEmpty(input) && (input == "WallAhead" || input == "GridEdge"))
+							text += $" {input}";
+						else return;
+						break;
 				}
 
 				AddTaskPanel(text); // Add a new task panel based on the dragged text

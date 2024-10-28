@@ -38,6 +38,9 @@
 			moveButton = new Button();
 			repeatButton = new Button();
 			programBuilder = new ProgramBuilder();
+			runBlockButton = new Button();
+			sizeBox = new TextBox();
+			repeatUntilButton = new Button();
 			SuspendLayout();
 			// 
 			// textBox
@@ -93,13 +96,13 @@
 			turnButton.BackgroundImageLayout = ImageLayout.Zoom;
 			turnButton.Font = new Font("Segoe UI", 30F);
 			turnButton.ForeColor = Color.White;
-			turnButton.Location = new Point(646, 781);
+			turnButton.Location = new Point(240, 781);
 			turnButton.Name = "turnButton";
-			turnButton.Size = new Size(256, 140);
+			turnButton.Size = new Size(194, 101);
 			turnButton.TabIndex = 5;
 			turnButton.Text = "Turn";
 			turnButton.UseVisualStyleBackColor = false;
-			turnButton.MouseDown += turnButton_MouseDown;
+			turnButton.MouseDown += draggable_MouseDown;
 			// 
 			// moveButton
 			// 
@@ -107,13 +110,13 @@
 			moveButton.BackgroundImageLayout = ImageLayout.Zoom;
 			moveButton.Font = new Font("Segoe UI", 30F);
 			moveButton.ForeColor = Color.White;
-			moveButton.Location = new Point(943, 781);
+			moveButton.Location = new Point(469, 781);
 			moveButton.Name = "moveButton";
-			moveButton.Size = new Size(256, 140);
+			moveButton.Size = new Size(201, 101);
 			moveButton.TabIndex = 7;
 			moveButton.Text = "Move";
 			moveButton.UseVisualStyleBackColor = false;
-			moveButton.MouseDown += moveButton_MouseDown;
+			moveButton.MouseDown += draggable_MouseDown;
 			// 
 			// repeatButton
 			// 
@@ -121,13 +124,13 @@
 			repeatButton.BackgroundImageLayout = ImageLayout.Zoom;
 			repeatButton.Font = new Font("Segoe UI", 30F);
 			repeatButton.ForeColor = Color.White;
-			repeatButton.Location = new Point(1230, 781);
+			repeatButton.Location = new Point(700, 781);
 			repeatButton.Name = "repeatButton";
-			repeatButton.Size = new Size(256, 140);
+			repeatButton.Size = new Size(239, 101);
 			repeatButton.TabIndex = 8;
 			repeatButton.Text = "Repeat";
 			repeatButton.UseVisualStyleBackColor = false;
-			repeatButton.MouseDown += repeatButton_MouseDown;
+			repeatButton.MouseDown += draggable_MouseDown;
 			// 
 			// programBuilder
 			// 
@@ -141,11 +144,48 @@
 			programBuilder.TabIndex = 9;
 			programBuilder.WrapContents = false;
 			// 
+			// runBlockButton
+			// 
+			runBlockButton.Location = new Point(12, 168);
+			runBlockButton.Name = "runBlockButton";
+			runBlockButton.Size = new Size(171, 62);
+			runBlockButton.TabIndex = 10;
+			runBlockButton.Text = "Load Blocks";
+			runBlockButton.UseVisualStyleBackColor = true;
+			runBlockButton.Click += runBlock_Click;
+			// 
+			// sizeBox
+			// 
+			sizeBox.Location = new Point(17, 410);
+			sizeBox.Name = "sizeBox";
+			sizeBox.Size = new Size(166, 31);
+			sizeBox.TabIndex = 11;
+			sizeBox.Text = "Put in Size";
+			sizeBox.KeyPress += sizeBox_KeyPress;
+			// 
+			// repeatUntilButton
+			// 
+			repeatUntilButton.BackColor = Color.Blue;
+			repeatUntilButton.BackgroundImageLayout = ImageLayout.Zoom;
+			repeatUntilButton.Font = new Font("Segoe UI", 30F);
+			repeatUntilButton.ForeColor = Color.White;
+			repeatUntilButton.Location = new Point(979, 781);
+			repeatUntilButton.Name = "repeatUntilButton";
+			repeatUntilButton.Size = new Size(353, 101);
+			repeatUntilButton.TabIndex = 12;
+			repeatUntilButton.Text = "RepeatUntil";
+			repeatUntilButton.UseVisualStyleBackColor = false;
+			repeatUntilButton.MouseDown += draggable_MouseDown;
+
+			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1600, 1000);
+			Controls.Add(repeatUntilButton);
+			Controls.Add(sizeBox);
+			Controls.Add(runBlockButton);
 			Controls.Add(programBuilder);
 			Controls.Add(repeatButton);
 			Controls.Add(moveButton);
@@ -170,5 +210,8 @@
 		private Button moveButton;
 		private Button repeatButton;
 		private ProgramBuilder programBuilder;
+		private Button runBlockButton;
+		private TextBox sizeBox;
+		private Button repeatUntilButton;
 	}
 }
