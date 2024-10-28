@@ -74,7 +74,7 @@ namespace MSO_opdracht_3
 			{
 				Filter = "Text Files (*.txt)|*.txt",
 				Title = "Select a Program File",
-				InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\"))
+				InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", @"Programs")),
 			};
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)

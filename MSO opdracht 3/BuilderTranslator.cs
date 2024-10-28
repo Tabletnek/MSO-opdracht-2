@@ -61,35 +61,38 @@ namespace MSO_opdracht_3
 			}
 			return null;
 		}
-
 		private ITask CreateRepeatTaskFromPanel(RepeatPanel repeatPanel, int programSize)
 		{
 			string labelText = (repeatPanel.Controls[0] as Label).Text;
-
 			var splitText = labelText.Split(' ');
-			if (splitText[0] == "Repeat")
-			{
-				if (int.TryParse(splitText[1], out int repeatCount))
-				{
-					var nestedProgram = new TaskProgram(programSize);
-					TranslateControls(repeatPanel.Controls, nestedProgram);
-					return new Repeat(repeatCount, nestedProgram.tasks);
-				}
-			}
-			else if (splitText[0] == "RepeatUntil")
-			{
-				var condition = splitText[1];
-				var nestedProgram = new TaskProgram(programSize);
-				TranslateControls(repeatPanel.Controls, nestedProgram);
+			var nestedProgram = new TaskProgram(programSize);
+			string repeatType = splitText[0];
 
-				return condition switch
-				{
-					"WallAhead" => new RepeatWall(nestedProgram.tasks),
-					"GridEdge" => new RepeatEdge(nestedProgram.tasks),
-					_ => null
-				};
+			TranslateControls(repeatPanel.Controls, nestedProgram);
+
+			switch (repeatType)
+			{
+				case "Repeat":
+					if (int.TryParse(splitText[1], out int repeatCount))
+					{
+						return new Repeat(repeatCount, nestedProgram.tasks);
+					}
+					break;
+
+				case "RepeatUntil":
+					string condition = splitText[1];
+					return condition switch
+					{
+						"WallAhead" => new RepeatWall(nestedProgram.tasks),
+						"GridEdge" => new RepeatEdge(nestedProgram.tasks),
+						_ => null
+					};
 			}
+
 			return null;
 		}
+
 	}
+
 }
+
