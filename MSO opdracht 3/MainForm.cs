@@ -22,7 +22,7 @@ namespace MSO_opdracht_3
 		private Calculator calculator;
 		private TaskProgram basicProgram = new TaskProgram(10);
 		private TaskProgram advancedProgram = new TaskProgram(10);
-		private TaskProgram expertProgram = new TaskProgram(1000);
+		private TaskProgram expertProgram = new TaskProgram(10);
 
 		public MainForm()
 		{
@@ -51,13 +51,13 @@ namespace MSO_opdracht_3
 			switch (loadProgramBox.SelectedItem)
 			{
 				case "Basic":
-					chosenProgram = basicProgram;
+					LoadProgram(basicProgram);
 					break;
 				case "Advanced":
-					chosenProgram = advancedProgram;
+					LoadProgram(advancedProgram);
 					break;
 				case "Expert":
-					chosenProgram = expertProgram;
+					LoadProgram(expertProgram);
 					break;
 				case "from file...":
 					LoadProgramFromFile();
@@ -83,7 +83,7 @@ namespace MSO_opdracht_3
 				string fileName = Path.GetFileName(filePath);
 
 				loadProgramBox.Text = fileName;
-				chosenProgram = translator.TranslateFile(filePath);
+				LoadProgram(translator.TranslateFile(filePath));
 				MessageBox.Show("Task program imported successfully.");
 			}
 		}
@@ -95,6 +95,7 @@ namespace MSO_opdracht_3
 			if (chosenProgram != null)
 			{
 				textBox.Text = chosenProgram.Run();
+				boardDisplay.TaskProgram = chosenProgram;
 			}
 			else
 			{
@@ -117,7 +118,7 @@ namespace MSO_opdracht_3
 		{
 			if (int.TryParse(sizeBox.Text, out int programSize))
 			{
-				chosenProgram = builderTranslator.TranslateBuilder(programBuilder, programSize);
+				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
 				MessageBox.Show("Program built successfully from panels.");
 
 			}
@@ -146,6 +147,12 @@ namespace MSO_opdracht_3
 			{
 				MessageBox.Show("Please load a program first.");
 			}
+		}
+
+		public void LoadProgram(TaskProgram program)
+		{
+			chosenProgram = program;
+			boardDisplay.TaskProgram = chosenProgram;
 		}
 
 		//Make the buttons draggable

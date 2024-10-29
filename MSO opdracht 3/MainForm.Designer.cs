@@ -41,6 +41,7 @@
 			runBlockButton = new Button();
 			sizeBox = new TextBox();
 			repeatUntilButton = new Button();
+			boardDisplay = new BoardDisplay();
 			SuspendLayout();
 			// 
 			// textBox
@@ -176,6 +177,11 @@
 			repeatUntilButton.Text = "RepeatUntil";
 			repeatUntilButton.UseVisualStyleBackColor = false;
 			repeatUntilButton.MouseDown += draggable_MouseDown;
+			//
+			// boardDisplay
+			//
+			boardDisplay.Location = new Point(1500, 12);
+			boardDisplay.Size = new Size(801, 801);
 			// 
 			// MainForm
 			// 
@@ -193,6 +199,7 @@
 			Controls.Add(runButton);
 			Controls.Add(loadProgramBox);
 			Controls.Add(textBox);
+			Controls.Add(boardDisplay);
 			Name = "MainForm";
 			Text = "Programming learning";
 			WindowState = FormWindowState.Maximized;
@@ -213,5 +220,6 @@
 		private Button runBlockButton;
 		private TextBox sizeBox;
 		private Button repeatUntilButton;
+		private BoardDisplay boardDisplay;
 	}
 }

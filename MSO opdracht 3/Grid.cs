@@ -25,9 +25,10 @@ namespace MSO_opdracht_3
 
 		public bool InsideBoard(Point point)
 		{
+			if (this.size == 0) return true;
 			int x = point.X; 
 			int y = point.Y;
-			return x >= 0 && x <= size && y >= 0 && y <= size;
+			return x >= 0 && x < size && y >= 0 && y < size;
 		}
 
 		public bool WallAhead(Player player)

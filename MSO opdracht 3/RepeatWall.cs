@@ -27,7 +27,6 @@ namespace MSO_opdracht_3
 					task.Execute(player, grid);
 					executionLog.Add(task.ToString());
 
-
 					if (grid.WallAhead(player))
 					{
 						return; //If condition is true stop the loop

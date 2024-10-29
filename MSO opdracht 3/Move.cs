@@ -23,8 +23,9 @@ namespace MSO_opdracht_3
         // It moves the player based on their current direction and the specified amount
         void ITask.Execute(Player player, IGrid grid)
         {
-            // Switch statement to update the player's position depending on their current direction
-            switch (player.direction)
+	        grid.AddVisitedPoint(player.position);
+			// Switch statement to update the player's position depending on their current direction
+			switch (player.direction)
             {
                 case "North":
                     // Moving north increases the Y-coordinate
