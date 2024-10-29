@@ -176,13 +176,12 @@
 			repeatUntilButton.Text = "RepeatUntil";
 			repeatUntilButton.UseVisualStyleBackColor = false;
 			repeatUntilButton.MouseDown += draggable_MouseDown;
-
 			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1600, 1000);
+			ClientSize = new Size(1972, 933);
 			Controls.Add(repeatUntilButton);
 			Controls.Add(sizeBox);
 			Controls.Add(runBlockButton);
@@ -196,6 +195,7 @@
 			Controls.Add(textBox);
 			Name = "MainForm";
 			Text = "Programming learning";
+			WindowState = FormWindowState.Maximized;
 			ResumeLayout(false);
 			PerformLayout();
 		}

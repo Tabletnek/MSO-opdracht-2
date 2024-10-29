@@ -23,12 +23,12 @@ namespace MSO_opdracht_3
         }
 
         // Executes the tasks the specified number of times.
-        void ITask.Execute(Player player, Board board)
+        void ITask.Execute(Player player, IGrid grid)
         {
             for (int i = 0; i < amount; i++)
             {
                 foreach (ITask task in tasks)
-                    task.Execute(player, board);
+                    task.Execute(player, grid);
             }
         }
 
@@ -44,7 +44,7 @@ namespace MSO_opdracht_3
             return result;
         }
 
-		public void Execute(Player player, Board board)
+		public void Execute(Player player, Grid board)
 		{
 			throw new NotImplementedException();
 		}

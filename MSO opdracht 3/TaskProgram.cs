@@ -9,7 +9,7 @@ namespace MSO_opdracht_3
 	{
 		public Player player;
 		public List<ITask> tasks;
-		public Board board;
+		public IGrid grid;
 
 		public event Action<string> Output; // Declare an output event
 
@@ -18,7 +18,14 @@ namespace MSO_opdracht_3
 		{
 			this.player = new Player(new Point(0, 0), "East");
 			this.tasks = new List<ITask>();
-			this.board = new Board(size);
+			this.grid = new Grid(size);
+		}
+
+		public TaskProgram(int size, IGrid grid)
+		{
+			this.player = new Player(new Point(0, 0), "East");
+			this.tasks = new List<ITask>();
+			this.grid = grid;
 		}
 
 		// Adds a task to the task list
@@ -31,12 +38,12 @@ namespace MSO_opdracht_3
 		public string Run()
 		{
 			player.position = new Point(0, 0); player.direction = "East";
-			board.visitedPoints.Clear();
+			grid.visitedPoints.Clear();
 			//reset the player and board before running agai
 			string result = "";
 			foreach (var task in tasks)
 			{
-				task.Execute(player, board);
+				task.Execute(player, grid);
 				result += task.ToString();
 			}
 			result +=($"\r\nEnd state ({player.position.X}, {player.position.Y}), facing {player.direction}");

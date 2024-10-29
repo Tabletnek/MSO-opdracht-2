@@ -21,7 +21,7 @@ namespace MSO_opdracht_3
 
         // Implementation of the Execute method from the ITask interface
         // It moves the player based on their current direction and the specified amount
-        void ITask.Execute(Player player, Board board)
+        void ITask.Execute(Player player, IGrid grid)
         {
             // Switch statement to update the player's position depending on their current direction
             switch (player.direction)
@@ -31,9 +31,9 @@ namespace MSO_opdracht_3
                     for (int i = 1; i <= amount; i++)
                     {
                         Point newPoint = new Point(player.position.X, player.position.Y + 1);
-                        if (board.InsideBoard(newPoint))
+                        if (grid.InsideBoard(newPoint))
                         {
-                            board.AddVisitedPoint(newPoint);
+                            grid.AddVisitedPoint(newPoint);
                             player.position = newPoint;
                         }        
 					}
@@ -43,9 +43,9 @@ namespace MSO_opdracht_3
 					for (int i = 1; i <= amount; i++)
 					{
 						Point newPoint = new Point(player.position.X + 1, player.position.Y);
-						if (board.InsideBoard(newPoint))
+						if (grid.InsideBoard(newPoint))
 						{
-							board.AddVisitedPoint(newPoint);
+							grid.AddVisitedPoint(newPoint);
 							player.position = newPoint;
 						}
 						else break;
@@ -56,9 +56,9 @@ namespace MSO_opdracht_3
 					for (int i = 1; i <= amount; i++)
 					{
 						Point newPoint = new Point(player.position.X, player.position.Y - 1);
-						if (board.InsideBoard(newPoint))
+						if (grid.InsideBoard(newPoint))
 						{
-							board.AddVisitedPoint(newPoint);
+							grid.AddVisitedPoint(newPoint);
 							player.position = newPoint;
 						}
 					}
@@ -68,9 +68,9 @@ namespace MSO_opdracht_3
 					for (int i = 1; i <= amount; i++)
 					{
 						Point newPoint = new Point(player.position.X - 1, player.position.Y);
-						if (board.InsideBoard(newPoint))
+						if (grid.InsideBoard(newPoint))
 						{
-							board.AddVisitedPoint(newPoint);
+							grid.AddVisitedPoint(newPoint);
 							player.position = newPoint;
 						}
 					}

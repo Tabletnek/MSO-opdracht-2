@@ -16,19 +16,19 @@ namespace MSO_opdracht_3
 			this.executionLog = new List<string>();
 		}
 
-		void ITask.Execute(Player player, Board board)
+		void ITask.Execute(Player player, IGrid grid)
 		{
 			executionLog.Clear(); //Empty the executionLog when running the repeat again. 
 
-			while (!board.GridEdge(player)) //Keep executing tasks as long as the condition isn't met
+			while (!grid.GridEdge(player)) //Keep executing tasks as long as the condition isn't met
 			{
 				foreach (ITask task in tasks)
 				{
-					task.Execute(player, board);
+					task.Execute(player, grid);
 					executionLog.Add(task.ToString());
 
 
-					if (board.GridEdge(player))
+					if (grid.GridEdge(player))
 					{
 						return; //If condition is true stop the loop
 					}

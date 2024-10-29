@@ -28,7 +28,7 @@ namespace MSO_opdracht_3
 				}
 				else if (control is RepeatPanel repeatPanel)
 				{
-					var repeatTask = CreateRepeatTaskFromPanel(repeatPanel, program.board.size);
+					var repeatTask = CreateRepeatTaskFromPanel(repeatPanel, program.grid.size);
 					if (repeatTask != null)
 					{
 						program.AddTask(repeatTask);

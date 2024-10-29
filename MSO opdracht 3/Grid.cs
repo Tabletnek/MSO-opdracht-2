@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace MSO_opdracht_3
 {
-	public class Board
+	public class Grid : IGrid
 	{
-		public int size;
-		public List<Point> visitedPoints;
-		public Board(int size)
+		public int size { get; }
+		public List<Point> visitedPoints { get; set; }
+		public Grid(int size)
 		{
 			this.size = size;
 			this.visitedPoints = new List<Point>();
 		}
 
-		public void AddVisitedPoint(Point point) 
+		public void AddVisitedPoint(Point point)
 		{
 			if (this.visitedPoints.Contains(point)) return;
-			else visitedPoints.Add(point);
+			visitedPoints.Add(point);
 		}
 
 		public bool InsideBoard(Point point)
@@ -31,6 +31,11 @@ namespace MSO_opdracht_3
 		}
 
 		public bool WallAhead(Player player)
+		{
+			return false;
+		}
+
+		public bool GridEdge(Player player)
 		{
 			string direction = player.direction;
 			Point nextPosition = player.position;
@@ -51,13 +56,6 @@ namespace MSO_opdracht_3
 					break;
 			}
 			return !InsideBoard(nextPosition);
-		}
-
-		public bool GridEdge(Player player)
-		{
-			int x = player.position.X; 
-			int y = player.position.Y;
-			return x == 0 || x == size || y == 0 || y == size;
 		}
 	}
 }

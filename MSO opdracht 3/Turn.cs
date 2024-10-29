@@ -16,7 +16,7 @@ namespace MSO_opdracht_3
         }
 
         // Executes the turn, updating the player's direction based on the current direction and the turn direction.
-        void ITask.Execute(Player player, Board board)
+        void ITask.Execute(Player player, IGrid grid)
         {
             switch (direction)
             {
