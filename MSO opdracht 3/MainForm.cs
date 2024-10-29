@@ -122,7 +122,7 @@ namespace MSO_opdracht_3
 				MessageBox.Show("Program built successfully from panels.");
 
 			}
-			else 
+			else
 			{
 				MessageBox.Show("Please enter a valid program size.");
 				return;
@@ -161,7 +161,12 @@ namespace MSO_opdracht_3
 		private void draggable_MouseDown(object sender, MouseEventArgs e)
 		{
 			Button b = (Button)sender;
-				b.DoDragDrop(b.Text, DragDropEffects.Copy | DragDropEffects.Move);
+			b.DoDragDrop(b.Text, DragDropEffects.Copy | DragDropEffects.Move);
+		}
+
+		private void clearBlocksButton_Click(object sender, EventArgs e)
+		{
+			programBuilder.Controls.Clear();
 		}
 	}
 }

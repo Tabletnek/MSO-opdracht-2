@@ -20,7 +20,7 @@ namespace MSO_opdracht_3
 			{
 				taskProgram = value;
 				UpdateCellAmount();
-				cellSize = this.Width / cellAmount;
+				if (cellAmount != 0) cellSize = this.Width / cellAmount;
 				Invalidate();
 			}
 		}
@@ -33,6 +33,7 @@ namespace MSO_opdracht_3
 
 		private void UpdateCellAmount()
 		{
+			if (taskProgram == null) return;
 			if (taskProgram.grid.size == 0 && taskProgram.grid.visitedPoints.Count > 0)
 			{
 				int maxX = Math.Max(taskProgram.player.position.X, taskProgram.grid.visitedPoints.Max(p => p.X));

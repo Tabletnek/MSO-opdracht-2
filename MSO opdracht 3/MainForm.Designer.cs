@@ -42,6 +42,7 @@
 			sizeBox = new TextBox();
 			repeatUntilButton = new Button();
 			boardDisplay = new BoardDisplay();
+			clearBlocksButton = new Button();
 			SuspendLayout();
 			// 
 			// textBox
@@ -177,17 +178,33 @@
 			repeatUntilButton.Text = "RepeatUntil";
 			repeatUntilButton.UseVisualStyleBackColor = false;
 			repeatUntilButton.MouseDown += draggable_MouseDown;
-			//
+			// 
 			// boardDisplay
-			//
+			// 
 			boardDisplay.Location = new Point(1500, 12);
+			boardDisplay.Name = "boardDisplay";
 			boardDisplay.Size = new Size(801, 801);
+			boardDisplay.TabIndex = 13;
+			boardDisplay.TaskProgram = null;
+			// 
+			// clearBlocksButton
+			// 
+			clearBlocksButton.BackColor = Color.Red;
+			clearBlocksButton.ForeColor = Color.White;
+			clearBlocksButton.Location = new Point(12, 859);
+			clearBlocksButton.Name = "clearBlocksButton";
+			clearBlocksButton.Size = new Size(171, 62);
+			clearBlocksButton.TabIndex = 14;
+			clearBlocksButton.Text = "Clear Blocks";
+			clearBlocksButton.UseVisualStyleBackColor = false;
+			clearBlocksButton.Click += clearBlocksButton_Click;
 			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1972, 933);
+			Controls.Add(clearBlocksButton);
 			Controls.Add(repeatUntilButton);
 			Controls.Add(sizeBox);
 			Controls.Add(runBlockButton);
@@ -221,5 +238,6 @@
 		private TextBox sizeBox;
 		private Button repeatUntilButton;
 		private BoardDisplay boardDisplay;
+		private Button clearBlocksButton;
 	}
 }
