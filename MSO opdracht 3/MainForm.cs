@@ -153,6 +153,8 @@ namespace MSO_opdracht_3
 		{
 			chosenProgram = program;
 			boardDisplay.TaskProgram = chosenProgram;
+			programBuilder.LoadProgram(chosenProgram);
+			sizeBox.Text = chosenProgram.grid.size.ToString();
 		}
 
 		//Make the buttons draggable

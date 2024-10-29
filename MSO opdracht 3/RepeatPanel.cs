@@ -8,7 +8,7 @@ namespace MSO_opdracht_3
 	{
 		private Label repeatLabel;
 
-		public RepeatPanel(string text, int nestingLevel = 1)
+		public RepeatPanel(string text)
 		{
 			this.MinimumSize = new Size(400, 80);
 			this.BackColor = Color.Purple;
@@ -48,7 +48,48 @@ namespace MSO_opdracht_3
 			this.AllowDrop = true;
 			this.DragEnter += OnDragEnter;
 			this.DragDrop += OnDragDrop;    
-	}
+		}
+
+		public void AddTaskPanel(string text)
+		{
+			var taskPanel = new Panel
+			{
+				Size = new Size(400, 80),
+				BackColor = Color.MediumPurple,
+				Margin = new Padding(20, 5, 0, 0)
+			};
+
+			Label taskLabel = new Label
+			{
+				Text = text,
+				Font = new Font("Segoe UI", 15F),
+				ForeColor = Color.White,
+				BackColor = Color.Transparent,
+				AutoSize = true,
+				Location = new Point(10, 10),
+				Padding = new Padding(5)
+			};
+
+			Button removeButton = new Button
+			{
+				Size = new Size(30, 20),
+				Text = "X",
+				Dock = DockStyle.Right,
+				BackColor = Color.Red,
+				ForeColor = Color.White,
+				Visible = true
+			};
+
+			removeButton.Click += (s, e) =>
+			{
+				taskPanel.Parent.Controls.Remove(taskPanel);
+			};
+
+			taskPanel.Controls.Add(taskLabel);
+			taskPanel.Controls.Add(removeButton);
+
+			this.Controls.Add(taskPanel);
+		}
 
 		private void OnMouseDown(object sender, MouseEventArgs e)
 		{
@@ -79,42 +120,7 @@ namespace MSO_opdracht_3
 				draggedPanel.Parent.Controls.Remove(draggedPanel);
 
 				// Create a new panel to represent the dropped panel in RepeatPanel
-				var newChildPanel = new Panel
-				{
-					Size = new Size(400, 80),
-					BackColor = Color.MediumPurple,
-					Margin = new Padding(20, 5, 0, 0) // Indent the new panel
-				};
-
-				Label taskLabel = new Label
-				{
-					Text = draggedPanel.Controls[0].Text, // Copy text from the original panel's label
-					Font = new Font("Segoe UI", 15F),
-					ForeColor = Color.White,
-					BackColor = Color.Transparent,
-					AutoSize = true,
-					Location = new Point(10, 10)
-				};
-
-				Button removeChildButton = new Button
-				{
-					Size = new Size(30, 20),
-					Text = "X",
-					Dock = DockStyle.Right,
-					BackColor = Color.Red,
-					ForeColor = Color.White,
-					Visible = true
-				};
-
-				removeChildButton.Click += (s, ev) =>
-				{
-					newChildPanel.Parent.Controls.Remove(newChildPanel);
-				};
-
-				newChildPanel.Controls.Add(taskLabel);
-				newChildPanel.Controls.Add(removeChildButton);
-
-				this.Controls.Add(newChildPanel);
+				this.AddTaskPanel(draggedPanel.Controls[0].Text);
 			}
 			else if (e.Data.GetDataPresent(typeof(RepeatPanel)))
 			{
@@ -129,7 +135,7 @@ namespace MSO_opdracht_3
 				
 				var newRepeatPanel = new RepeatPanel(draggedRepeatPanel.repeatLabel.Text)
 				{
-					Margin = new Padding(20, 0, 0, 0)
+					Margin = new Padding(20, 5, 0, 0)
 				};
 
 				while (draggedRepeatPanel.Controls.Count > 0)
@@ -137,9 +143,8 @@ namespace MSO_opdracht_3
 					Control child = draggedRepeatPanel.Controls[0];
 					draggedRepeatPanel.Controls.Remove(child);
 					if (child is Panel || child is RepeatPanel)
-					newRepeatPanel.Controls.Add(child);
+						newRepeatPanel.Controls.Add(child);
 				}
-
 
 				this.Controls.Add(newRepeatPanel);
 			}

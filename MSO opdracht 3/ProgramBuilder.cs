@@ -163,6 +163,82 @@ namespace MSO_opdracht_3
 			}
 		}
 
+		public void LoadProgram(TaskProgram program)
+		{
+			this.Controls.Clear();
+			foreach (var task in program.tasks)
+			{
+				AddTaskAsPanel(task);
+			}
+		}
+
+		private void AddTaskAsPanel(ITask task)
+		{
+			switch (task)
+			{
+				case Move moveTask:
+					AddTaskPanel($"Move {moveTask.amount}");
+					break;
+				case Turn turnTask:
+					AddTaskPanel($"Turn {turnTask.direction}");
+					break;
+				case Repeat repeatTask:
+					var repeatPanel = new RepeatPanel($"Repeat {repeatTask.amount} times");
+					this.Controls.Add(repeatPanel);
+					AddTasksToRepeatPanel(repeatPanel, repeatTask.tasks);
+					break;
+				case RepeatWall repeatWallTask:
+					var repeatWallPanel = new RepeatPanel("RepeatUntil WallAhead");
+					this.Controls.Add(repeatWallPanel);
+					AddTasksToRepeatPanel(repeatWallPanel, repeatWallTask.tasks);
+					break;
+				case RepeatEdge repeatEdgeTask:
+					var repeatEdgePanel = new RepeatPanel("RepeatUntil GridEdge");
+					this.Controls.Add(repeatEdgePanel);
+					AddTasksToRepeatPanel(repeatEdgePanel, repeatEdgeTask.tasks);
+					break;
+			}
+		}
+
+		// New method to recursively add tasks to a RepeatPanel
+		private void AddTasksToRepeatPanel(RepeatPanel repeatPanel, List<ITask> tasks)
+		{
+			foreach (var task in tasks)
+			{
+				switch (task)
+				{
+					case Move moveTask:
+						repeatPanel.AddTaskPanel($"Move {moveTask.amount}"); // Add Move tasks directly to repeat panel
+						break;
+
+					case Turn turnTask:
+						repeatPanel.AddTaskPanel($"Turn {turnTask.direction}"); // Add Turn tasks directly to repeat panel
+						break;
+
+					case Repeat nestedRepeatTask:
+						var nestedRepeatPanel = new RepeatPanel($"Repeat {nestedRepeatTask.amount} times");
+						nestedRepeatPanel.Margin = new Padding(20 , 5, 0, 0); 
+						repeatPanel.Controls.Add(nestedRepeatPanel); // Add the nested repeat panel
+						AddTasksToRepeatPanel(nestedRepeatPanel, nestedRepeatTask.tasks);
+						break;
+
+					case RepeatWall nestedRepeatWallTask:
+						var nestedRepeatWallPanel = new RepeatPanel("RepeatUntil WallAhead");
+						nestedRepeatWallPanel.Margin = new Padding(20, 5, 0, 0);
+						repeatPanel.Controls.Add(nestedRepeatWallPanel); // Add the nested repeat wall panel
+						AddTasksToRepeatPanel(nestedRepeatWallPanel, nestedRepeatWallTask.tasks);
+						break;
+
+					case RepeatEdge nestedRepeatEdgeTask:
+						var nestedRepeatEdgePanel = new RepeatPanel("RepeatUntil GridEdge");
+						nestedRepeatEdgePanel.Margin = new Padding(20, 5, 0, 0);
+						repeatPanel.Controls.Add(nestedRepeatEdgePanel); // Add the nested repeat edge panel
+						AddTasksToRepeatPanel(nestedRepeatEdgePanel, nestedRepeatEdgeTask.tasks);
+						break;
+				}
+			}
+		}
+
 		private void MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
