@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,9 +26,9 @@ namespace MSO_opdracht_3
 
 		public bool InsideBoard(Point point)
 		{
-			if (this.size == 0) return true;
 			int x = point.X; 
 			int y = point.Y;
+			if (this.size == 0) return x >= 0 && y >= 0;
 			return x >= 0 && x < size && y >= 0 && y < size;
 		}
 

@@ -14,6 +14,11 @@ namespace MSO_opdracht_3
 			this.BackColor = Color.Purple;
 			this.BorderStyle = BorderStyle.FixedSingle;
 			this.AutoSize = true;
+			this.AllowDrop = true;
+
+			this.MouseDown += OnMouseDown;
+			this.DragEnter += OnDragEnter;
+			this.DragDrop += OnDragDrop;
 
 			repeatLabel = new Label
 			{
@@ -43,52 +48,16 @@ namespace MSO_opdracht_3
 
 			this.Controls.Add(repeatLabel);
 			this.Controls.Add(removeButton);
-			this.MouseDown += OnMouseDown;
-
-			this.AllowDrop = true;
-			this.DragEnter += OnDragEnter;
-			this.DragDrop += OnDragDrop;    
+  
 		}
 
 		public void AddTaskPanel(string text)
 		{
-			var taskPanel = new Panel
+			TaskPanel newPanel = new TaskPanel(text)
 			{
-				Size = new Size(400, 80),
-				BackColor = Color.MediumPurple,
 				Margin = new Padding(20, 5, 0, 0)
 			};
-
-			Label taskLabel = new Label
-			{
-				Text = text,
-				Font = new Font("Segoe UI", 15F),
-				ForeColor = Color.White,
-				BackColor = Color.Transparent,
-				AutoSize = true,
-				Location = new Point(10, 10),
-				Padding = new Padding(5)
-			};
-
-			Button removeButton = new Button
-			{
-				Size = new Size(30, 20),
-				Text = "X",
-				Dock = DockStyle.Right,
-				BackColor = Color.Red,
-				ForeColor = Color.White,
-				Visible = true
-			};
-
-			removeButton.Click += (s, e) =>
-			{
-				taskPanel.Parent.Controls.Remove(taskPanel);
-			};
-
-			taskPanel.Controls.Add(taskLabel);
-			taskPanel.Controls.Add(removeButton);
-
-			this.Controls.Add(taskPanel);
+			this.Controls.Add(newPanel);
 		}
 
 		private void OnMouseDown(object sender, MouseEventArgs e)
@@ -101,7 +70,7 @@ namespace MSO_opdracht_3
 
 		private void OnDragEnter(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(RepeatPanel)) || e.Data.GetDataPresent(typeof(Panel)))
+			if (e.Data.GetDataPresent(typeof(RepeatPanel)) || e.Data.GetDataPresent(typeof(TaskPanel)))
 			{
 				e.Effect = DragDropEffects.Move;
 			}
@@ -113,14 +82,15 @@ namespace MSO_opdracht_3
 
 		private void OnDragDrop(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(Panel)))
+			if (e.Data.GetDataPresent(typeof(TaskPanel)))
 			{
-				Panel draggedPanel = (Panel)e.Data.GetData(typeof(Panel));
+				TaskPanel droppedPanel = (TaskPanel)e.Data.GetData(typeof(TaskPanel));
+
 				// Remove the dragged panel from its current parent
-				draggedPanel.Parent.Controls.Remove(draggedPanel);
+				droppedPanel.Parent.Controls.Remove(droppedPanel);
 
 				// Create a new panel to represent the dropped panel in RepeatPanel
-				this.AddTaskPanel(draggedPanel.Controls[0].Text);
+				this.AddTaskPanel(droppedPanel.Controls[0].Text);
 			}
 			else if (e.Data.GetDataPresent(typeof(RepeatPanel)))
 			{

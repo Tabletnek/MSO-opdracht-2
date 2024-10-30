@@ -17,15 +17,16 @@ namespace MSO_opdracht_3
 		public ProgramBuilder()
 		{
 			this.AllowDrop = true;
-			this.DragEnter += FlowLayoutPanel1_DragEnter;
-			this.DragDrop += FlowLayoutPanel1_DragDrop;
 			this.BorderStyle = BorderStyle.FixedSingle;
 			this.AutoScroll = true; // Enable scrolling if too many panels
+
+			this.DragEnter += FlowLayoutPanel1_DragEnter;
+			this.DragDrop += FlowLayoutPanel1_DragDrop;
 		}
 
 		private void FlowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(Panel)) || e.Data.GetDataPresent(typeof(RepeatPanel)))
+			if (e.Data.GetDataPresent(typeof(TaskPanel)) || e.Data.GetDataPresent(typeof(RepeatPanel)))
 			{
 				e.Effect = DragDropEffects.Move;
 			}
@@ -41,9 +42,9 @@ namespace MSO_opdracht_3
 
 		private void FlowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(Panel)))
+			if (e.Data.GetDataPresent(typeof(TaskPanel)))
 			{
-				Panel droppedPanel = (Panel)e.Data.GetData(typeof(Panel));
+				TaskPanel droppedPanel = (TaskPanel)e.Data.GetData(typeof(TaskPanel));
 				Point dropPoint = this.PointToClient(new Point(e.X, e.Y));
 				Control controlUnderMouse = this.GetChildAtPoint(dropPoint);
 
@@ -120,45 +121,7 @@ namespace MSO_opdracht_3
 			}
 			else
 			{
-				Panel newPanel = new Panel
-				{
-					Size = new Size(400, 80),
-					BackColor = Color.MediumPurple,
-					BorderStyle = BorderStyle.FixedSingle
-				};
-
-				newPanel.MouseDown += MouseDown;
-
-				Label taskLabel = new Label
-				{
-					Text = text,
-					Font = new Font("Segoe UI", 15F),
-					ForeColor = Color.White,
-					BackColor = Color.Transparent,
-					AutoSize = true,
-					Dock = DockStyle.None,
-					Location = new Point(10, 10),
-					Padding = new Padding(5)
-				};
-
-				Button removeButton = new Button
-				{
-					Size = new Size(30, 20),
-					Text = "X",
-					Dock = DockStyle.Right,
-					BackColor = Color.Red,
-					ForeColor = Color.White,
-					Visible = true
-				};
-
-				removeButton.Click += (s, e) =>
-				{
-					newPanel.Parent.Controls.Remove(newPanel);
-				};
-
-				newPanel.Controls.Add(taskLabel);
-				newPanel.Controls.Add(removeButton);
-
+				TaskPanel newPanel = new TaskPanel(text);
 				this.Controls.Add(newPanel);
 			}
 		}
@@ -236,14 +199,6 @@ namespace MSO_opdracht_3
 						AddTasksToRepeatPanel(nestedRepeatEdgePanel, nestedRepeatEdgeTask.tasks);
 						break;
 				}
-			}
-		}
-
-		private void MouseDown(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left)
-			{
-				this.DoDragDrop((Panel)sender, DragDropEffects.Move);
 			}
 		}
 	}
