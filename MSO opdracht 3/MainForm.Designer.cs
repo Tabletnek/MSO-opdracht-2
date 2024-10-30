@@ -38,7 +38,6 @@
 			moveButton = new Button();
 			repeatButton = new Button();
 			programBuilder = new ProgramBuilder();
-			runBlockButton = new Button();
 			sizeBox = new TextBox();
 			repeatUntilButton = new Button();
 			boardDisplay = new BoardDisplay();
@@ -146,16 +145,6 @@
 			programBuilder.TabIndex = 9;
 			programBuilder.WrapContents = false;
 			// 
-			// runBlockButton
-			// 
-			runBlockButton.Location = new Point(12, 168);
-			runBlockButton.Name = "runBlockButton";
-			runBlockButton.Size = new Size(171, 62);
-			runBlockButton.TabIndex = 10;
-			runBlockButton.Text = "Load Blocks";
-			runBlockButton.UseVisualStyleBackColor = true;
-			runBlockButton.Click += runBlock_Click;
-			// 
 			// sizeBox
 			// 
 			sizeBox.Location = new Point(17, 410);
@@ -163,6 +152,7 @@
 			sizeBox.Size = new Size(166, 31);
 			sizeBox.TabIndex = 11;
 			sizeBox.Text = "Put in Size";
+			sizeBox.TextChanged += sizeBox_TextChanged;
 			sizeBox.KeyPress += sizeBox_KeyPress;
 			// 
 			// repeatUntilButton
@@ -207,7 +197,6 @@
 			Controls.Add(clearBlocksButton);
 			Controls.Add(repeatUntilButton);
 			Controls.Add(sizeBox);
-			Controls.Add(runBlockButton);
 			Controls.Add(programBuilder);
 			Controls.Add(repeatButton);
 			Controls.Add(moveButton);
@@ -234,7 +223,6 @@
 		private Button moveButton;
 		private Button repeatButton;
 		private ProgramBuilder programBuilder;
-		private Button runBlockButton;
 		private TextBox sizeBox;
 		private Button repeatUntilButton;
 		private BoardDisplay boardDisplay;

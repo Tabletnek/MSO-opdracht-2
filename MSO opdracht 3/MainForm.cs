@@ -16,7 +16,7 @@ namespace MSO_opdracht_3
 {
 	public partial class MainForm : Form
 	{
-		TaskProgram chosenProgram = null;
+		TaskProgram chosenProgram;
 		private FileTranslator translator;
 		private BuilderTranslator builderTranslator;
 		private Calculator calculator;
@@ -51,12 +51,15 @@ namespace MSO_opdracht_3
 			switch (loadProgramBox.SelectedItem)
 			{
 				case "Basic":
+					programBuilder.LoadProgram(basicProgram);
 					LoadProgram(basicProgram);
 					break;
 				case "Advanced":
+					programBuilder.LoadProgram(advancedProgram);
 					LoadProgram(advancedProgram);
 					break;
 				case "Expert":
+					programBuilder.LoadProgram(expertProgram);
 					LoadProgram(expertProgram);
 					break;
 				case "from file...":
@@ -83,7 +86,9 @@ namespace MSO_opdracht_3
 				string fileName = Path.GetFileName(filePath);
 
 				loadProgramBox.Text = fileName;
-				LoadProgram(translator.TranslateFile(filePath));
+				TaskProgram newProgram = translator.TranslateFile(filePath);
+				programBuilder.LoadProgram(newProgram);
+				LoadProgram(newProgram);
 				MessageBox.Show("Task program imported successfully.");
 			}
 		}
@@ -92,14 +97,15 @@ namespace MSO_opdracht_3
 		//Run the current loaded program (if one is loaded) and show the output in the text box
 		private void runButton_Click(object sender, EventArgs e)
 		{
-			if (chosenProgram != null)
+			if (chosenProgram != null && int.TryParse(sizeBox.Text, out int programSize))
 			{
+				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
 				textBox.Text = chosenProgram.Run();
 				boardDisplay.TaskProgram = chosenProgram;
 			}
 			else
 			{
-				MessageBox.Show("Please load a program first.");
+				MessageBox.Show("Please set a size first");
 			}
 		}
 
@@ -113,21 +119,12 @@ namespace MSO_opdracht_3
 			}
 		}
 
-		//Load the current program made using the builder blocks.
-		private void runBlock_Click(object sender, EventArgs e)
+		private void sizeBox_TextChanged(object sender, EventArgs e)
 		{
 			if (int.TryParse(sizeBox.Text, out int programSize))
 			{
-				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
-				MessageBox.Show("Program built successfully from panels.");
-
+					LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
 			}
-			else
-			{
-				MessageBox.Show("Please enter a valid program size.");
-				return;
-			}
-
 		}
 
 		//Calculate the amount of commands, repeats and nesting of the current loaded program
@@ -135,6 +132,7 @@ namespace MSO_opdracht_3
 		{
 			if (chosenProgram != null)
 			{
+				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, chosenProgram.grid.size));
 				int commandCount = calculator.numOfCommands(chosenProgram);
 				int repeatCount = calculator.numOfRepeats(chosenProgram);
 				int maxNestLevel = calculator.maxNestLvl(chosenProgram);
@@ -145,7 +143,7 @@ namespace MSO_opdracht_3
 			}
 			else
 			{
-				MessageBox.Show("Please load a program first.");
+				MessageBox.Show("Please load a program first. You can do this by setting a size, or importing/creating one");
 			}
 		}
 
@@ -153,7 +151,6 @@ namespace MSO_opdracht_3
 		{
 			chosenProgram = program;
 			boardDisplay.TaskProgram = chosenProgram;
-			programBuilder.LoadProgram(chosenProgram);
 			sizeBox.Text = chosenProgram.grid.size.ToString();
 		}
 
@@ -167,6 +164,12 @@ namespace MSO_opdracht_3
 		private void clearBlocksButton_Click(object sender, EventArgs e)
 		{
 			programBuilder.Controls.Clear();
+			if (chosenProgram != null)
+			{
+				int programSize = chosenProgram.grid.size;
+				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
+				textBox.Text = "";
+			}
 		}
 	}
 }
