@@ -14,6 +14,7 @@ namespace MSO_Opdracht_3
 
 	public class ProgramBuilder : FlowLayoutPanel
 	{
+		//Setting the basic properties for the ProgramBuilder
 		public ProgramBuilder()
 		{
 			this.AllowDrop = true;
@@ -23,7 +24,7 @@ namespace MSO_Opdracht_3
 			this.DragEnter += OnDragEnter;
 			this.DragDrop += OnDragDrop;
 		}
-
+		//Decide what to do when something is dragged over the ProgramBuilder
 		private void OnDragEnter(object sender, DragEventArgs e)
 		{
 			if (e.Data.GetDataPresent(typeof(TaskPanel)) || e.Data.GetDataPresent(typeof(RepeatPanel)))
@@ -39,7 +40,7 @@ namespace MSO_Opdracht_3
 				e.Effect = DragDropEffects.None;
 			}
 		}
-
+		//Handle dropping something onto the ProgramBuilder
 		private void OnDragDrop(object sender, DragEventArgs e)
 		{
 			if (e.Data.GetDataPresent(typeof(TaskPanel)))
@@ -56,6 +57,7 @@ namespace MSO_Opdracht_3
 			}
 		}
 
+		//Whenever an already existing panel is dropped again on the ProgramBuilder, rearrange the order if necessary
 		private void HandlePanelDrop<T>(DragEventArgs e) where T : Control
 		{
 			T droppedPanel = (T)e.Data.GetData(typeof(T));
@@ -73,6 +75,7 @@ namespace MSO_Opdracht_3
 			}
 		}
 
+		//Whenever a new command is dropped using the buttons, add it to the ProgramBuilder
 		private void HandleTextDrop(string text)
 		{
 			string input = PromptForInput(text);
@@ -92,6 +95,7 @@ namespace MSO_Opdracht_3
 			}
 		}
 
+		//Ask the user about the command they want to add to the ProgramBuilder
 		private string PromptForInput(string text)
 		{
 			string input = string.Empty;
@@ -118,6 +122,7 @@ namespace MSO_Opdracht_3
 			return input;
 		}
 
+		//Add a panel to the ProgramBuilder
 	private void AddTaskPanel(string text)
 		{
 			if (text.StartsWith("Repeat"))
@@ -132,6 +137,7 @@ namespace MSO_Opdracht_3
 			}
 		}
 
+		//Load a program into the ProgramBuilder
 		public void LoadProgram(TaskProgram program)
 		{
 			this.Controls.Clear();
@@ -141,6 +147,7 @@ namespace MSO_Opdracht_3
 			}
 		}
 
+		//Turn a task into a panel of the ProgramBuilder
 		private void AddTaskAsPanel(ITask task)
 		{
 			string text = task switch
@@ -170,7 +177,7 @@ namespace MSO_Opdracht_3
 			}
 		}
 
-		// New method to recursively add tasks to a RepeatPanel
+		// Recursively add tasks to a RepeatPanel
 		private void AddTasksToRepeatPanel(RepeatPanel repeatPanel, List<ITask> tasks)
 		{
 			foreach (var task in tasks)
