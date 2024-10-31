@@ -2,55 +2,55 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
     // The Turn class implements the ITask interface and turns the player either left or right
     public class Turn : ITask
     {
-        public string direction; 
+        public string Direction; 
 
         // Constructor to initialize the direction of the turn.
         public Turn(string direction)
         {
-            this.direction = direction;
+            this.Direction = direction;
         }
 
         // Executes the turn, updating the player's direction based on the current direction and the turn direction.
         void ITask.Execute(Player player, IGrid grid)
         {
-            switch (direction)
+            switch (Direction)
             {
                 case "right":  // Handle turning right based on the current direction.
-                    switch (player.direction)
+                    switch (player.Direction)
                     {
                         case "North":
-                            player.direction = "East";
+                            player.Direction = "East";
 							break;
 						case "East":
-                            player.direction = "South";
+                            player.Direction = "South";
 							break;
 						case "South":
-                            player.direction = "West";
+                            player.Direction = "West";
 							break;
 						case "West":
-                            player.direction = "North";
+                            player.Direction = "North";
 							break;
 					}
 					break;
 				case "left":  // Handle turning left based on the current direction.
-                    switch (player.direction)
+                    switch (player.Direction)
                     {
                         case "North":
-                            player.direction = "West";
+                            player.Direction = "West";
                             break;
                         case "East":
-                            player.direction = "North";
+                            player.Direction = "North";
 							break;
 						case "South":
-                            player.direction = "East";
+                            player.Direction = "East";
 							break;
 						case "West":
-                            player.direction = "South";
+                            player.Direction = "South";
 							break;
 					}
 				break;
@@ -60,7 +60,7 @@ namespace MSO_opdracht_3
         // Returns a string representation of the turn command.
         public override string ToString()
         {
-            return $"Turn {this.direction}, ";
+            return $"Turn {this.Direction}, ";
         }
     }
 }

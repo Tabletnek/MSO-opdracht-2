@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
 	public class PathFindingGrid : IGrid
 	{
-		public int size { get; }
-		public List<Point> visitedPoints { get; set; }
-		public List<Point> walls;
+		public int Size { get; }
+		public List<Point> VisitedPoints { get; set; }
+		public List<Point> Walls;
 		public PathFindingGrid(int size)
 		{
-			this.size = size;
-			this.visitedPoints = new List<Point>();
-			this.walls = new List<Point>();
+			this.Size = size;
+			this.VisitedPoints = new List<Point>();
+			this.Walls = new List<Point>();
 		}
 
 		bool IGrid.InsideBoard(Point point)
@@ -26,20 +26,20 @@ namespace MSO_opdracht_3
 
 		public void AddVisitedPoint(Point point)
 		{
-			if (this.visitedPoints.Contains(point)) return;
-			visitedPoints.Add(point);
+			if (this.VisitedPoints.Contains(point)) return;
+			VisitedPoints.Add(point);
 		}
 
 		public void AddWall(Point point)
 		{
-			if (this.walls.Contains(point)) return;
-			walls.Add(point);
+			if (this.Walls.Contains(point)) return;
+			Walls.Add(point);
 		}
 
 		public bool WallAhead(Player player)
 		{
-			string direction = player.direction;
-			Point nextPosition = player.position;
+			string direction = player.Direction;
+			Point nextPosition = player.Position;
 
 			switch (direction)
 			{
@@ -61,8 +61,8 @@ namespace MSO_opdracht_3
 
 		public bool GridEdge(Player player)
 		{
-			string direction = player.direction;
-			Point nextPosition = player.position;
+			string direction = player.Direction;
+			Point nextPosition = player.Position;
 
 			switch (direction)
 			{
@@ -86,13 +86,13 @@ namespace MSO_opdracht_3
 		{
 			int x = point.X;
 			int y = point.Y;
-			if (this.size == 0) return x >= 0 && y >= 0;
-			return x >= 0 && x < size && y >= 0 && y < size;
+			if (this.Size == 0) return x >= 0 && y >= 0;
+			return x >= 0 && x < Size && y >= 0 && y < Size;
 		}
 
 		private bool InsideWall(Point point)
 		{
-			return walls.Any(wall => wall == point);
+			return Walls.Any(wall => wall == point);
 		}
 	}
 }

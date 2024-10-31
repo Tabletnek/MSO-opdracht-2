@@ -1,4 +1,4 @@
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
 	internal static class Program
 	{

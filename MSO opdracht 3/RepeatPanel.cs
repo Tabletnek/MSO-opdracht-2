@@ -2,11 +2,11 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
 	public class RepeatPanel : FlowLayoutPanel
 	{
-		private Label repeatLabel;
+		private readonly Label _repeatLabel;
 
 		public RepeatPanel(string text)
 		{
@@ -20,7 +20,18 @@ namespace MSO_opdracht_3
 			this.DragEnter += OnDragEnter;
 			this.DragDrop += OnDragDrop;
 
-			repeatLabel = new Label
+			_repeatLabel = CreateRepeatLabel(text);
+
+			Button removeButton = CreateRemoveButton();
+
+			this.Controls.Add(_repeatLabel);
+			this.Controls.Add(removeButton);
+  
+		}
+
+		public Label CreateRepeatLabel(string text)
+		{
+			Label repeatLabel = new Label
 			{
 				Text = text,
 				Font = new Font("Segoe UI", 15F),
@@ -30,7 +41,11 @@ namespace MSO_opdracht_3
 				Location = new Point(10, 10),
 				Padding = new Padding(5)
 			};
+			return repeatLabel;
+		}
 
+		public Button CreateRemoveButton()
+		{
 			Button removeButton = new Button
 			{
 				Size = new Size(30, 20),
@@ -46,9 +61,7 @@ namespace MSO_opdracht_3
 				this.Parent.Controls.Remove(this);
 			};
 
-			this.Controls.Add(repeatLabel);
-			this.Controls.Add(removeButton);
-  
+			return removeButton;
 		}
 
 		public void AddTaskPanel(string text)
@@ -103,7 +116,7 @@ namespace MSO_opdracht_3
 
 				draggedRepeatPanel.Parent.Controls.Remove(draggedRepeatPanel);
 				
-				var newRepeatPanel = new RepeatPanel(draggedRepeatPanel.repeatLabel.Text)
+				var newRepeatPanel = new RepeatPanel(draggedRepeatPanel._repeatLabel.Text)
 				{
 					Margin = new Padding(20, 5, 0, 0)
 				};

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
 	public class BoardDisplay : UserControl
 	{
@@ -34,16 +34,16 @@ namespace MSO_opdracht_3
 		private void UpdateCellAmount()
 		{
 			if (taskProgram == null) return;
-			if (taskProgram.grid.size == 0 && taskProgram.grid.visitedPoints.Count > 0)
+			if (taskProgram.Grid.Size == 0 && taskProgram.Grid.VisitedPoints.Count > 0)
 			{
-				int maxX = Math.Max(taskProgram.player.position.X, taskProgram.grid.visitedPoints.Max(p => p.X));
-				int maxY = Math.Max(taskProgram.player.position.Y, taskProgram.grid.visitedPoints.Max(p => p.Y));
+				int maxX = Math.Max(taskProgram.Player.Position.X, taskProgram.Grid.VisitedPoints.Max(p => p.X));
+				int maxY = Math.Max(taskProgram.Player.Position.Y, taskProgram.Grid.VisitedPoints.Max(p => p.Y));
 				int maxDimension = Math.Max(maxX, maxY) + 1; // Ensures zero index fits
 				cellAmount = maxDimension;
 			}
-			else if (taskProgram.grid.size > 0)
+			else if (taskProgram.Grid.Size > 0)
 			{
-				cellAmount = taskProgram.grid.size;
+				cellAmount = taskProgram.Grid.Size;
 			}
 			else
 			{
@@ -67,8 +67,8 @@ namespace MSO_opdracht_3
 
 		public void DrawPlayer(Graphics gr)
 		{
-			int x = taskProgram.player.position.X;
-			int y = cellAmount - 1 - taskProgram.player.position.Y;
+			int x = taskProgram.Player.Position.X;
+			int y = cellAmount - 1 - taskProgram.Player.Position.Y;
 			{
 				gr.FillRectangle(Brushes.Blue, x * cellSize, y * cellSize, cellSize, cellSize);
 			}
@@ -89,7 +89,7 @@ namespace MSO_opdracht_3
 
 		public void DrawVisitedPoints(Graphics gr)
 		{
-			foreach (Point point in taskProgram.grid.visitedPoints)
+			foreach (Point point in taskProgram.Grid.VisitedPoints)
 			{
 				int x = point.X;
 				int y = cellAmount - 1 - point.Y;

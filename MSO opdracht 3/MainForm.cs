@@ -12,7 +12,7 @@ using Microsoft.VisualBasic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
     public partial class MainForm : Form
     {
@@ -43,14 +43,14 @@ namespace MSO_opdracht_3
             basicProgram.AddTask(new Move(10));
             basicProgram.AddTask(new Move(2));
 
-            advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
+			advancedProgram.AddTask(new Repeat(4, basicProgram.Tasks));
 
-            //expertProgram.AddTask(new Move(1));
-            //expertProgram.AddTask(new Turn("left"));
-            //expertProgram.AddTask(new Move(1));
-            //expertProgram.AddTask(new Turn("right"));
-            expertProgram.AddTask(new RepeatWall(basicProgram.tasks));
-        }
+			//expertProgram.AddTask(new Move(1));
+			//expertProgram.AddTask(new Turn("left"));
+			//expertProgram.AddTask(new Move(1));
+			//expertProgram.AddTask(new Turn("right"));
+			expertProgram.AddTask(new RepeatWall(basicProgram.Tasks));
+		}
 
 		//Load a program using one of the examples or one out of a textfile
 		private void loadProgramBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,7 +177,7 @@ namespace MSO_opdracht_3
 		{
 			if (chosenProgram != null)
 			{
-				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, chosenProgram.grid.size));
+				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, chosenProgram.Grid.Size));
 				int commandCount = calculator.numOfCommands(chosenProgram);
 				int repeatCount = calculator.numOfRepeats(chosenProgram);
 				int maxNestLevel = calculator.maxNestLvl(chosenProgram);
@@ -196,7 +196,7 @@ namespace MSO_opdracht_3
 		{
 			chosenProgram = program;
 			boardDisplay.TaskProgram = chosenProgram;
-			sizeBox.Text = chosenProgram.grid.size.ToString();
+			sizeBox.Text = chosenProgram.Grid.Size.ToString();
 		}
 
 		//Make the buttons draggable
@@ -211,7 +211,7 @@ namespace MSO_opdracht_3
 			programBuilder.Controls.Clear();
 			if (chosenProgram != null)
 			{
-				int programSize = chosenProgram.grid.size;
+				int programSize = chosenProgram.Grid.Size;
 				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
 				textBox.Text = "";
 			}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
 	public class BuilderTranslator
 	{
@@ -28,7 +28,7 @@ namespace MSO_opdracht_3
 				}
 				else if (control is RepeatPanel repeatPanel)
 				{
-					var repeatTask = CreateRepeatTaskFromPanel(repeatPanel, program.grid.size);
+					var repeatTask = CreateRepeatTaskFromPanel(repeatPanel, program.Grid.Size);
 					if (repeatTask != null)
 					{
 						program.AddTask(repeatTask);
@@ -75,7 +75,7 @@ namespace MSO_opdracht_3
 				case "Repeat":
 					if (int.TryParse(splitText[1], out int repeatCount))
 					{
-						return new Repeat(repeatCount, nestedProgram.tasks);
+						return new Repeat(repeatCount, nestedProgram.Tasks);
 					}
 					break;
 
@@ -83,8 +83,8 @@ namespace MSO_opdracht_3
 					string condition = splitText[1];
 					return condition switch
 					{
-						"WallAhead" => new RepeatWall(nestedProgram.tasks),
-						"GridEdge" => new RepeatEdge(nestedProgram.tasks),
+						"WallAhead" => new RepeatWall(nestedProgram.Tasks),
+						"GridEdge" => new RepeatEdge(nestedProgram.Tasks),
 						_ => null
 					};
 			}

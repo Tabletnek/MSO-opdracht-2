@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
     // Defines a calculator with methods to calculate aspects of a program
     public class Calculator
@@ -15,18 +15,18 @@ namespace MSO_opdracht_3
             int number = 0;  // Initial amount
 
             // Iterate through each task in the program
-            foreach (var task in prog.tasks)
+            foreach (var task in prog.Tasks)
             {
                 number++;  // Increment for each task
 
                 // If the task is a Repeat block, calculate the amount of tasks it contains
                 if (task is IRepeat currentRepeat)
                 {
-                    TaskProgram repeatProgram = new TaskProgram(prog.grid.size);  // Create a new program for the nested tasks
+                    TaskProgram repeatProgram = new TaskProgram(prog.Grid.Size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
-                    foreach (var repeatTask in currentRepeat.tasks)
-                        repeatProgram.tasks.Add(repeatTask);
+                    foreach (var repeatTask in currentRepeat.Tasks)
+                        repeatProgram.Tasks.Add(repeatTask);
 
                     // Count the commands inside the Repeat block
                     number += numOfCommands(repeatProgram);
@@ -41,16 +41,16 @@ namespace MSO_opdracht_3
             int maxNumber = 0;  // Initial amount
 
             // Iterate through each task in the program
-            foreach (var task in prog.tasks)
+            foreach (var task in prog.Tasks)
             {
                 // If the task is a Repeat block, check the nesting level
                 if (task is IRepeat currentRepeat)
                 {
-                    TaskProgram repeatProgram = new TaskProgram(prog.grid.size);  // Create a new program for the nested tasks
+                    TaskProgram repeatProgram = new TaskProgram(prog.Grid.Size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
-                    foreach (var repeatTask in currentRepeat.tasks)
-                        repeatProgram.tasks.Add(repeatTask);
+                    foreach (var repeatTask in currentRepeat.Tasks)
+                        repeatProgram.Tasks.Add(repeatTask);
 
                     // Recursively calculate the nesting level
                     int currentNumber = 1 + maxNestLvl(repeatProgram);
@@ -71,17 +71,17 @@ namespace MSO_opdracht_3
             int number = 0;  // Initial amount
 
             // Iterate through each task in the program
-            foreach (var task in prog.tasks)
+            foreach (var task in prog.Tasks)
             {
                 // If the task is a Repeat block, count it and calculate for the content of the loop
                 if (task is IRepeat currentRepeat)
                 {
                     number++;  // Increment for the current Repeat block.
-                    TaskProgram repeatProgram = new TaskProgram(prog.grid.size);  // Create a new program for the nested tasks
+                    TaskProgram repeatProgram = new TaskProgram(prog.Grid.Size);  // Create a new program for the nested tasks
 
                     // Add all tasks in the Repeat block to the new program
-                    foreach (var repeatTask in currentRepeat.tasks)
-                        repeatProgram.tasks.Add(repeatTask);
+                    foreach (var repeatTask in currentRepeat.Tasks)
+                        repeatProgram.Tasks.Add(repeatTask);
 
                     // Count the Repeat blocks inside the current Repeat block
                     number += numOfRepeats(repeatProgram);

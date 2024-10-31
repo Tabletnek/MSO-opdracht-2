@@ -6,28 +6,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
     // The Repeat class implements the ITask interface and repeats a set of tasks a given number of times
     public class Repeat : IRepeat
     {
-        public int amount;  // Number of times to repeat the tasks
-		public List<ITask> tasks { get; private set; }  // List of tasks to repeat
+        public int Amount;  // Number of times to repeat the tasks
+		public List<ITask> Tasks { get; private set; }  // List of tasks to repeat
 
 
 		// Constructor initializes the repeat task with a specified amount and tasks
 		public Repeat(int amount, List<ITask> tasks)
         {
-            this.tasks = tasks;
-            this.amount = amount;
+            this.Tasks = tasks;
+            this.Amount = amount;
         }
 
         // Executes the tasks the specified number of times.
         void ITask.Execute(Player player, IGrid grid)
         {
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < Amount; i++)
             {
-                foreach (ITask task in tasks)
+                foreach (ITask task in Tasks)
                     task.Execute(player, grid);
             }
         }
@@ -36,9 +36,9 @@ namespace MSO_opdracht_3
         public override string ToString()
         {
             string result = "";
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < Amount; i++)
             {
-                foreach (ITask task in tasks)
+                foreach (ITask task in Tasks)
                     result += task.ToString();
             }
             return result;

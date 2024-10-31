@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
     // The Translator class translates a text file to a program
     public class FileTranslator
@@ -50,15 +50,15 @@ namespace MSO_opdracht_3
                     case "Turn":
                         program.AddTask(new Turn(split[1])); break;
                     case "Repeat":
-                        program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).tasks)); break; // Creates a new program to use for our loop
+                        program.AddTask(new Repeat(int.Parse(split[1]), TranslateProgram(sr, nestedLoops + 1).Tasks)); break; // Creates a new program to use for our loop
                     case "RepeatUntil":
                         string condition = split[1];
                         switch (condition) 
                         {
 							case "WallAhead":
-								program.AddTask(new RepeatWall(TranslateProgram(sr, nestedLoops + 1).tasks)); break; // Creates a new program to use for our loop
+								program.AddTask(new RepeatWall(TranslateProgram(sr, nestedLoops + 1).Tasks)); break; // Creates a new program to use for our loop
                             case "GridEdge":
-								program.AddTask(new RepeatEdge(TranslateProgram(sr, nestedLoops + 1).tasks)); break; // Creates a new program to use for our loop
+								program.AddTask(new RepeatEdge(TranslateProgram(sr, nestedLoops + 1).Tasks)); break; // Creates a new program to use for our loop
 						}
                         break;
 

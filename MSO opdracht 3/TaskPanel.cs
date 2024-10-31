@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
 	public class TaskPanel: Panel
 
@@ -17,6 +17,19 @@ namespace MSO_opdracht_3
 
 			this.MouseDown += OnMouseDown;
 
+			Label taskLabel = CreateTaskLabel(text);
+
+			Button removeButton = CreateRemoveButton();
+
+			this.Controls.Add(taskLabel);
+			this.Controls.Add(removeButton);
+		}
+
+		public Label CreateTaskLabel(string text)
+		{
+			const int padding = 5;
+			const int offset = 10;
+
 			Label taskLabel = new Label
 			{
 				Text = text,
@@ -25,10 +38,14 @@ namespace MSO_opdracht_3
 				BackColor = Color.Transparent,
 				AutoSize = true,
 				Dock = DockStyle.None,
-				Location = new Point(10, 10),
-				Padding = new Padding(5)
+				Location = new Point(offset, offset),
+				Padding = new Padding(padding)
 			};
+			return taskLabel;
+		}
 
+		public Button CreateRemoveButton()
+		{
 			Button removeButton = new Button
 			{
 				Size = new Size(30, 20),
@@ -43,9 +60,7 @@ namespace MSO_opdracht_3
 			{
 				this.Parent.Controls.Remove(this);
 			};
-
-			this.Controls.Add(taskLabel);
-			this.Controls.Add(removeButton);
+			return removeButton;
 		}
 
 		private void OnMouseDown(object sender, MouseEventArgs e)

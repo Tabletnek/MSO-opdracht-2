@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSO_opdracht_3
+namespace MSO_Opdracht_3
 {
     // The Player class represents a player in the game, including their position and direction
     public class Player
     {
-        public Point position { get; set; }
+        public Point Position { get; set; }
 
-        public string direction { get; set; }
+        public string Direction { get; set; }
 
         // Constructor to initialize a Player object with a starting position and direction.
         public Player(Point pos, string dir)
         {
-            this.position = pos;  
-            this.direction = dir;  
+            this.Position = pos;  
+            this.Direction = dir;  
         }
     }
 }
