@@ -61,6 +61,8 @@ namespace MSO_Opdracht_3
 			Graphics gr = e.Graphics;
 			DrawGrid(gr);
 			DrawVisitedPoints(gr);
+			if (taskProgram.Grid is PathFindingGrid)
+				DrawWalls(gr);
 			DrawPlayer(gr);
 		}
 
@@ -99,5 +101,18 @@ namespace MSO_Opdracht_3
 			}
 		}
 
-	}
+        public void DrawWalls(Graphics gr)
+        {
+            PathFindingGrid pathGrid = (PathFindingGrid)taskProgram.Grid;
+            foreach (Point point in pathGrid.Walls)
+            {
+                int x = point.X;
+                int y = cellAmount - 1 - point.Y;
+                {
+                    gr.FillRectangle(Brushes.Black, x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+
+    }
 }

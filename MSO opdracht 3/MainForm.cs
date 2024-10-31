@@ -195,6 +195,11 @@ namespace MSO_Opdracht_3
 		public void LoadProgram(TaskProgram program)
 		{
 			chosenProgram = program;
+			if (chosenExercise != null)
+			{
+                chosenProgram.Grid = chosenExercise;
+				chosenProgram.ResetPlayer();
+            }
 			boardDisplay.TaskProgram = chosenProgram;
 			sizeBox.Text = chosenProgram.Grid.Size.ToString();
 		}

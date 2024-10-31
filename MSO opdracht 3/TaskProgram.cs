@@ -35,9 +35,9 @@ namespace MSO_Opdracht_3
 		// Executes each task and prints the final state of the player
 		public string Run()
 		{
-			Player.Position = new Point(0, 0); Player.Direction = "East";
+			ResetPlayer();
 			Grid.VisitedPoints.Clear();
-			//reset the player and board before running agai
+			//reset the player and board before running again
 			string result = "";
 			foreach (var task in Tasks)
 			{
@@ -47,5 +47,16 @@ namespace MSO_Opdracht_3
 			result +=($"\r\nEnd state ({Player.Position.X}, {Player.Position.Y}), facing {Player.Direction}");
 			return result;
 		}
+		public void ResetPlayer()
+		{
+			if (Grid is PathFindingGrid)
+			{
+                Player.Position = new Point(0, Grid.Size - 1); Player.Direction = "East";
+            }  
+			else
+			{
+                Player.Position = new Point(0, 0); Player.Direction = "East";
+            }
+        }
 	}
 }
