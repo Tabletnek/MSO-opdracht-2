@@ -87,7 +87,7 @@ namespace MSO_Opdracht_3
 			int x = point.X;
 			int y = point.Y;
 			if (this.Size == 0) return x >= 0 && y >= 0;
-			return x >= 0 && x < Size && y >= 0 && y < Size;
+			return x >= 0 && x < Size && y >= 0 && y < Size && !InsideWall(point);
 		}
 
 		private bool InsideWall(Point point)
