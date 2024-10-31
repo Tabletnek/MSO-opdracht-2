@@ -20,7 +20,7 @@
 			base.Dispose(disposing);
 		}
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -31,7 +31,8 @@
 			components = new System.ComponentModel.Container();
 			textBox = new TextBox();
 			loadProgramBox = new ComboBox();
-			toolTip = new ToolTip(components);
+            loadExerciseBox = new ComboBox();
+            toolTip = new ToolTip(components);
 			runButton = new Button();
 			calculateButton = new Button();
 			turnButton = new Button();
@@ -70,10 +71,27 @@
 			loadProgramBox.Text = "Load program";
 			toolTip.SetToolTip(loadProgramBox, "Select a program to load or import from file.");
 			loadProgramBox.SelectedIndexChanged += loadProgramBox_SelectedIndexChanged;
-			// 
-			// runButton
-			// 
-			runButton.Location = new Point(12, 248);
+            // 
+            // loadExercisesBox
+            // 
+            loadExerciseBox.AllowDrop = true;
+            loadExerciseBox.BackColor = Color.White;
+            loadExerciseBox.Font = new Font("Segoe UI", 12F);
+            loadExerciseBox.ForeColor = Color.Blue;
+            loadExerciseBox.FormattingEnabled = true;
+            loadExerciseBox.Items.AddRange(new object[] { "Basic", "Advanced", "Expert", "from file..." });
+            loadExerciseBox.Location = new Point(10, 386);
+            loadExerciseBox.Margin = new Padding(2);
+            loadExerciseBox.Name = "loadExercisesBox";
+            loadExerciseBox.Size = new Size(146, 36);
+            loadExerciseBox.TabIndex = 13;
+            loadExerciseBox.Text = "Load exercise";
+            toolTip.SetToolTip(loadExerciseBox, "Select a exercise to load or import from file.");
+            loadExerciseBox.SelectedIndexChanged += loadExerciseBox_SelectedIndexChanged;
+            // 
+            // runButton
+            // 
+            runButton.Location = new Point(12, 248);
 			runButton.Name = "runButton";
 			runButton.Size = new Size(171, 62);
 			runButton.TabIndex = 3;
@@ -204,7 +222,8 @@
 			Controls.Add(calculateButton);
 			Controls.Add(runButton);
 			Controls.Add(loadProgramBox);
-			Controls.Add(textBox);
+            Controls.Add(loadExerciseBox);
+            Controls.Add(textBox);
 			Controls.Add(boardDisplay);
 			Name = "MainForm";
 			Text = "Programming learning";
@@ -213,10 +232,11 @@
 			PerformLayout();
 		}
 
-		#endregion
-		private TextBox textBox;
+        #endregion
+        private TextBox textBox;
 		private ComboBox loadProgramBox;
-		private ToolTip toolTip;
+        private ComboBox loadExerciseBox;
+        private ToolTip toolTip;
 		private Button runButton;
 		private Button calculateButton;
 		private Button turnButton;

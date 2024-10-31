@@ -14,36 +14,43 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MSO_opdracht_3
 {
-	public partial class MainForm : Form
-	{
-		TaskProgram chosenProgram;
-		private FileTranslator translator;
-		private BuilderTranslator builderTranslator;
-		private Calculator calculator;
-		private TaskProgram basicProgram = new TaskProgram(10);
-		private TaskProgram advancedProgram = new TaskProgram(10);
-		private TaskProgram expertProgram = new TaskProgram(10);
+    public partial class MainForm : Form
+    {
+        TaskProgram chosenProgram;
+        IGrid chosenExercise = null; 
+        private FileTranslator translator;
+        private PathTranslator pathTranslator;
+        private BuilderTranslator builderTranslator;
+        private Calculator calculator;
+        private TaskProgram basicProgram = new TaskProgram(10);
+        private TaskProgram advancedProgram = new TaskProgram(10);
+        private TaskProgram expertProgram = new TaskProgram(1000);
 
-		public MainForm()
-		{
-			InitializeComponent();
+        private IGrid basicExercise = new PathFindingGrid(10);
+        private IGrid advancedExercise = new PathFindingGrid(10);
+        private IGrid expertExercise = new PathFindingGrid(10);
 
-			translator = new FileTranslator();
-			builderTranslator = new BuilderTranslator();
-			calculator = new Calculator();
+        public MainForm()
+        {
+            InitializeComponent();
 
-			// Create the Example Programs
-			basicProgram.AddTask(new Move(10));
-			basicProgram.AddTask(new Move(2));
+            translator = new FileTranslator();
+            pathTranslator = new PathTranslator();
+            builderTranslator = new BuilderTranslator();
+            calculator = new Calculator();
 
-			advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
+            // Create the Example Programs
+            basicProgram.AddTask(new Move(10));
+            basicProgram.AddTask(new Move(2));
 
-			//expertProgram.AddTask(new Move(1));
-			//expertProgram.AddTask(new Turn("left"));
-			//expertProgram.AddTask(new Move(1));
-			//expertProgram.AddTask(new Turn("right"));
-			expertProgram.AddTask(new RepeatWall(basicProgram.tasks));
-		}
+            advancedProgram.AddTask(new Repeat(4, basicProgram.tasks));
+
+            //expertProgram.AddTask(new Move(1));
+            //expertProgram.AddTask(new Turn("left"));
+            //expertProgram.AddTask(new Move(1));
+            //expertProgram.AddTask(new Turn("right"));
+            expertProgram.AddTask(new RepeatWall(basicProgram.tasks));
+        }
 
 		//Load a program using one of the examples or one out of a textfile
 		private void loadProgramBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -68,22 +75,41 @@ namespace MSO_opdracht_3
 			}
 		}
 
-		//Show the file explorer to choose a text file to load
-		// I used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.initialdirectory?view=windowsdesktop-8.0
-		// and https://stackoverflow.com/questions/21769921/does-openfiledialog-initialdirectory-not-accept-relative-path
-		private void LoadProgramFromFile()
-		{
-			OpenFileDialog openFileDialog = new OpenFileDialog
-			{
-				Filter = "Text Files (*.txt)|*.txt",
-				Title = "Select a Program File",
-				InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", @"Programs")),
-			};
+        private void loadExerciseBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (loadExerciseBox.SelectedItem)
+            {
+                case "Basic":
+                    chosenExercise = basicExercise;
+                    break;
+                case "Advanced":
+                    chosenExercise = advancedExercise;
+                    break;
+                case "Expert":
+                    chosenExercise = expertExercise;
+                    break;
+                case "from file...":
+                    LoadExerciseFromFile();
+                    break;
+            }
+        }
 
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				string filePath = openFileDialog.FileName;
-				string fileName = Path.GetFileName(filePath);
+        //Show the file explorer to choose a text file to load
+        // I used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.initialdirectory?view=windowsdesktop-8.0
+        // and https://stackoverflow.com/questions/21769921/does-openfiledialog-initialdirectory-not-accept-relative-path
+        private void LoadProgramFromFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Text Files (*.txt)|*.txt",
+                Title = "Select a Program File",
+                InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", @"Programs")),
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                string fileName = Path.GetFileName(filePath);
 
 				loadProgramBox.Text = fileName;
 				TaskProgram newProgram = translator.TranslateFile(filePath);
@@ -93,6 +119,25 @@ namespace MSO_opdracht_3
 			}
 		}
 
+        private void LoadExerciseFromFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Text Files (*.txt)|*.txt",
+                Title = "Select a Exercise File",
+                InitialDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\", @"Exercises")),
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                string fileName = Path.GetFileName(filePath);
+
+                loadExerciseBox.Text = fileName;
+                chosenExercise = pathTranslator.TranslateFile(filePath);
+                MessageBox.Show("Exercise imported successfully.");
+            }
+        }
 
 		//Run the current loaded program (if one is loaded) and show the output in the text box
 		private void runButton_Click(object sender, EventArgs e)
@@ -109,15 +154,15 @@ namespace MSO_opdracht_3
 			}
 		}
 
-		//Make sure only numbers can be entered
-		//https://stackoverflow.com/questions/463299/how-do-i-make-a-textbox-that-only-accepts-numbers
-		private void sizeBox_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-			{
-				e.Handled = true;
-			}
-		}
+        //Make sure only numbers can be entered
+        //https://stackoverflow.com/questions/463299/how-do-i-make-a-textbox-that-only-accepts-numbers
+        private void sizeBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
 
 		private void sizeBox_TextChanged(object sender, EventArgs e)
 		{
