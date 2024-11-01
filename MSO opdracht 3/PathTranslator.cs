@@ -37,6 +37,10 @@ namespace MSO_Opdracht_3
                     {
                         grid.Walls.Add(new Point(i, row));
                     }
+                    if (tile == 'x')
+                    {
+                        grid.EndPoint = new Point(i, row);
+                    }
                 }
                 _line = sr.ReadLine();
             }

@@ -81,7 +81,7 @@
             loadExerciseBox.Font = new Font("Segoe UI", 12F);
             loadExerciseBox.ForeColor = Color.Blue;
             loadExerciseBox.FormattingEnabled = true;
-            loadExerciseBox.Items.AddRange(new object[] { "Basic", "Advanced", "Expert", "from file..." });
+            loadExerciseBox.Items.AddRange(new object[] { "None", "Basic", "Advanced", "Expert", "from file..." });
             loadExerciseBox.Location = new Point(10, 65);
             loadExerciseBox.Margin = new Padding(2);
             loadExerciseBox.Name = "loadExerciseBox";

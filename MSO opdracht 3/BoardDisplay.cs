@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -62,7 +63,10 @@ namespace MSO_Opdracht_3
 			DrawGrid(gr);
 			DrawVisitedPoints(gr);
 			if (taskProgram.Grid is PathFindingGrid)
-				DrawWalls(gr);
+			{
+                DrawWalls(gr);
+				DrawEndPoint(gr);
+            }
 			DrawPlayer(gr);
 		}
 
@@ -114,5 +118,12 @@ namespace MSO_Opdracht_3
             }
         }
 
+        public void DrawEndPoint(Graphics gr)
+        {
+            PathFindingGrid pathGrid = (PathFindingGrid)taskProgram.Grid;
+            int x = pathGrid.EndPoint.X;
+            int y = cellAmount - 1 - pathGrid.EndPoint.Y;
+            gr.FillEllipse(Brushes.Gold, x * cellSize, y * cellSize, cellSize, cellSize);
+        }
     }
 }

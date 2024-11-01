@@ -79,17 +79,48 @@ namespace MSO_Opdracht_3
         {
             switch (loadExerciseBox.SelectedItem)
             {
+                case "None":
+                    chosenExercise = null;
+                    break;
                 case "Basic":
                     chosenExercise = basicExercise;
+                    if (chosenProgram == null)
+                    {
+                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
+						chosenProgram = newProgram;
+                        programBuilder.LoadProgram(chosenProgram);
+                    }
+                    LoadProgram(chosenProgram);
                     break;
                 case "Advanced":
                     chosenExercise = advancedExercise;
+                    if (chosenProgram == null)
+                    {
+                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
+                        chosenProgram = newProgram;
+                        programBuilder.LoadProgram(chosenProgram);
+                    }
+                    LoadProgram(chosenProgram);
                     break;
                 case "Expert":
                     chosenExercise = expertExercise;
+                    if (chosenProgram == null)
+                    {
+                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
+                        chosenProgram = newProgram;
+                        programBuilder.LoadProgram(chosenProgram);
+                    }
+                    LoadProgram(chosenProgram);
                     break;
                 case "from file...":
                     LoadExerciseFromFile();
+                    if (chosenProgram == null)
+                    {
+                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
+                        chosenProgram = newProgram;
+                        programBuilder.LoadProgram(chosenProgram);
+                    }
+                    LoadProgram(chosenProgram);
                     break;
             }
         }
@@ -147,6 +178,14 @@ namespace MSO_Opdracht_3
 				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
 				textBox.Text = chosenProgram.Run();
 				boardDisplay.TaskProgram = chosenProgram;
+                if (chosenExercise is PathFindingGrid)
+                {
+                    PathFindingGrid pathGrid = (PathFindingGrid)chosenExercise;
+                    if (chosenProgram.Player.Position == pathGrid.EndPoint)
+                    {
+                        MessageBox.Show("Exercise successfully completed!");
+                    }
+                }
 			}
 			else
 			{
@@ -195,8 +234,11 @@ namespace MSO_Opdracht_3
 		public void LoadProgram(TaskProgram program)
 		{
 			chosenProgram = program;
-			if (chosenExercise != null)
+			if (chosenExercise is PathFindingGrid)
 			{
+                PathFindingGrid pathGrid = (PathFindingGrid)chosenExercise;
+                pathGrid.ResetVisitedPoints();
+                chosenExercise = pathGrid;
                 chosenProgram.Grid = chosenExercise;
 				chosenProgram.ResetPlayer();
             }

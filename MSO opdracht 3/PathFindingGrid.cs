@@ -12,12 +12,18 @@ namespace MSO_Opdracht_3
 		public int Size { get; }
 		public List<Point> VisitedPoints { get; set; }
 		public List<Point> Walls;
+		public Point EndPoint;
 		public PathFindingGrid(int size)
 		{
 			this.Size = size;
 			this.VisitedPoints = new List<Point>();
 			this.Walls = new List<Point>();
 		}
+
+		public void ResetVisitedPoints()
+		{
+            this.VisitedPoints = new List<Point>();
+        }
 
 		bool IGrid.InsideBoard(Point point)
 		{
