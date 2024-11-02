@@ -17,10 +17,8 @@ namespace MSO_Opdracht_3
     public partial class MainForm : Form
     {
         TaskProgram chosenProgram;
-        IGrid chosenExercise = null; 
-        private FileTranslator translator;
-        private PathTranslator pathTranslator;
-        private BuilderTranslator builderTranslator;
+        IGrid chosenExercise = null;
+        private TranslatorContext translatorContext;
         private Calculator calculator;
         private TaskProgram basicProgram = new TaskProgram(10);
         private TaskProgram advancedProgram = new TaskProgram(10);
@@ -34,9 +32,7 @@ namespace MSO_Opdracht_3
         {
             InitializeComponent();
 
-            translator = new FileTranslator();
-            pathTranslator = new PathTranslator();
-            builderTranslator = new BuilderTranslator();
+            translatorContext = new TranslatorContext();
             calculator = new Calculator();
 
             // Create the Example Programs
@@ -81,6 +77,13 @@ namespace MSO_Opdracht_3
             {
                 case "None":
                     chosenExercise = null;
+
+                    // Reset the grid immediately when "None" is selected
+                    if (chosenProgram != null)
+                    {
+                        chosenProgram.Grid = new Grid(chosenProgram.Grid.Size);
+                        LoadProgram(chosenProgram);
+                    }
                     break;
                 case "Basic":
                     chosenExercise = basicExercise;
@@ -142,8 +145,11 @@ namespace MSO_Opdracht_3
                 string filePath = openFileDialog.FileName;
                 string fileName = Path.GetFileName(filePath);
 
-				loadProgramBox.Text = fileName;
-				TaskProgram newProgram = translator.TranslateFile(filePath);
+                // Set the translator context with FileTranslator for TaskProgram
+                translatorContext.SetTranslator(new FileTranslator(filePath));
+                TaskProgram newProgram = translatorContext.ExecuteTranslation<TaskProgram>();
+
+                loadProgramBox.Text = fileName;
 				programBuilder.LoadProgram(newProgram);
 				LoadProgram(newProgram);
 				MessageBox.Show("Task program imported successfully.");
@@ -164,8 +170,11 @@ namespace MSO_Opdracht_3
                 string filePath = openFileDialog.FileName;
                 string fileName = Path.GetFileName(filePath);
 
+                // Set the translator context with PathTranslator for IGrid
+                translatorContext.SetTranslator(new PathTranslator(filePath));
+                chosenExercise = translatorContext.ExecuteTranslation<PathFindingGrid>();
+
                 loadExerciseBox.Text = fileName;
-                chosenExercise = pathTranslator.TranslateFile(filePath);
                 MessageBox.Show("Exercise imported successfully.");
             }
         }
@@ -175,8 +184,13 @@ namespace MSO_Opdracht_3
 		{
 			if (chosenProgram != null && int.TryParse(sizeBox.Text, out int programSize))
 			{
-				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
-				textBox.Text = chosenProgram.Run();
+                // Set the translator context with the BuilderTranslator for the current program size
+                translatorContext.SetTranslator(new BuilderTranslator(programBuilder, programSize));
+
+                // Translate and load the new program using the context
+                LoadProgram(translatorContext.ExecuteTranslation<TaskProgram>());
+
+                textBox.Text = chosenProgram.Run();
 				boardDisplay.TaskProgram = chosenProgram;
                 if (chosenExercise is PathFindingGrid)
                 {
@@ -203,21 +217,27 @@ namespace MSO_Opdracht_3
             }
         }
 
-		private void sizeBox_TextChanged(object sender, EventArgs e)
-		{
-			if (int.TryParse(sizeBox.Text, out int programSize))
-			{
-					LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
-			}
-		}
+        private void sizeBox_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(sizeBox.Text, out int programSize))
+            {
+                translatorContext.SetTranslator(new BuilderTranslator(programBuilder, programSize));
+                LoadProgram(translatorContext.ExecuteTranslation<TaskProgram>());
+            }
+        }
 
-		//Calculate the amount of commands, repeats and nesting of the current loaded program
-		private void calculateButton_Click(object sender, EventArgs e)
+        //Calculate the amount of commands, repeats and nesting of the current loaded program
+        private void calculateButton_Click(object sender, EventArgs e)
 		{
 			if (chosenProgram != null)
 			{
-				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, chosenProgram.Grid.Size));
-				int commandCount = calculator.numOfCommands(chosenProgram);
+                // Set the translator context with the BuilderTranslator for the current program size
+                translatorContext.SetTranslator(new BuilderTranslator(programBuilder, chosenProgram.Grid.Size));
+
+                // Translate and load the new program using the context
+                LoadProgram(translatorContext.ExecuteTranslation<TaskProgram>());
+
+                int commandCount = calculator.numOfCommands(chosenProgram);
 				int repeatCount = calculator.numOfRepeats(chosenProgram);
 				int maxNestLevel = calculator.maxNestLvl(chosenProgram);
 
@@ -239,10 +259,10 @@ namespace MSO_Opdracht_3
                 PathFindingGrid pathGrid = (PathFindingGrid)chosenExercise;
                 pathGrid.ResetVisitedPoints();
                 chosenExercise = pathGrid;
-                chosenProgram.Grid = chosenExercise;
-				chosenProgram.ResetPlayer();
+                chosenProgram.Grid = chosenExercise;	
             }
-			boardDisplay.TaskProgram = chosenProgram;
+            chosenProgram.ResetPlayer();
+            boardDisplay.TaskProgram = chosenProgram;
 			sizeBox.Text = chosenProgram.Grid.Size.ToString();
 		}
 
@@ -259,8 +279,9 @@ namespace MSO_Opdracht_3
 			if (chosenProgram != null)
 			{
 				int programSize = chosenProgram.Grid.Size;
-				LoadProgram(builderTranslator.TranslateBuilder(programBuilder, programSize));
-				textBox.Text = "";
+                translatorContext.SetTranslator(new BuilderTranslator(programBuilder, programSize));
+                LoadProgram(translatorContext.ExecuteTranslation<TaskProgram>());
+                textBox.Text = "";
 			}
 		}
 	}
