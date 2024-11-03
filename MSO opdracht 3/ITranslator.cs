@@ -6,7 +6,7 @@ namespace MSO_Opdracht_3
 {
     public interface ITranslator<T>
     {
-        T Translate();
+        public T Translate();
     }
 }
 
