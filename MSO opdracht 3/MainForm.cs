@@ -30,7 +30,8 @@ namespace MSO_Opdracht_3
 
         public MainForm()
         {
-            InitializeComponent();
+	        this.AutoScaleMode = AutoScaleMode.Dpi;
+			InitializeComponent();
 
             translatorContext = new TranslatorContext();
             calculator = new Calculator();
@@ -281,7 +282,7 @@ namespace MSO_Opdracht_3
 				int programSize = chosenProgram.Grid.Size;
                 translatorContext.SetTranslator(new BuilderTranslator(programBuilder, programSize));
                 LoadProgram(translatorContext.ExecuteTranslation<TaskProgram>());
-                textBox.Text = "";
+                textBox.Text = string.Empty;
 			}
 		}
 	}

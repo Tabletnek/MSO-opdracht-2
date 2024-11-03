@@ -21,7 +21,10 @@ namespace MSO_Opdracht_3
 			{
 				taskProgram = value;
 				UpdateCellAmount();
-				if (cellAmount != 0) cellSize = this.Width / cellAmount;
+				if (cellAmount != 0)
+				{
+					cellSize = Math.Min(this.Width / cellAmount, this.Height / cellAmount);
+				}
 				Invalidate();
 			}
 		}
@@ -120,10 +123,11 @@ namespace MSO_Opdracht_3
 
         public void DrawEndPoint(Graphics gr)
         {
-            PathFindingGrid pathGrid = (PathFindingGrid)taskProgram.Grid;
-            int x = pathGrid.EndPoint.X;
-            int y = cellAmount - 1 - pathGrid.EndPoint.Y;
-            gr.FillEllipse(Brushes.Gold, x * cellSize, y * cellSize, cellSize, cellSize);
+	        PathFindingGrid pathGrid = (PathFindingGrid)taskProgram.Grid;
+	        int x = pathGrid.EndPoint.X;
+	        int y = cellAmount - 1 - pathGrid.EndPoint.Y;
+	        gr.FillEllipse(Brushes.Gold, x * cellSize, y * cellSize, cellSize, cellSize);
         }
-    }
+
+	}
 }

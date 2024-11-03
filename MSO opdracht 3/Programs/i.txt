@@ -1,4 +1,4 @@
-BoardSize 9999
+BoardSize 0
 Repeat 8 times
 	Repeat 7 times
 		Repeat 6 times
@@ -7,4 +7,36 @@ Repeat 8 times
 					Repeat 3 times
 						Repeat 2 times
 							Repeat 1 times
-								Move 1
+								Repeat 1 times
+									Repeat 1 times
+										Repeat 8 times
+											Repeat 7 times
+												Repeat 6 times
+													Repeat 5 times
+														Repeat 4 times
+															Repeat 3 times
+																Repeat 2 times
+																	Repeat 1 times
+																		Repeat 1 times
+																			Repeat 1 times
+																				Repeat 8 times
+																					Repeat 7 times
+																						Repeat 6 times
+																							Repeat 5 times
+																								Repeat 4 times
+																									Repeat 3 times
+																										Repeat 2 times
+																											Repeat 1 times
+																												Repeat 1 times
+																													Repeat 1 times
+																														Repeat 8 times
+																															Repeat 7 times
+																																Repeat 6 times
+																																	Repeat 5 times
+																																		Repeat 4 times
+																																			Repeat 3 times
+																																				Repeat 2 times
+																																					Repeat 1 times
+																																						Repeat 1 times
+																																							Repeat 1 times
+																																								Move 1
