@@ -30,7 +30,7 @@ namespace MSO_Opdracht_3
 
         public MainForm()
         {
-	        this.AutoScaleMode = AutoScaleMode.Dpi;
+	        this.AutoScaleMode = AutoScaleMode.Font;
 			InitializeComponent();
 
             translatorContext = new TranslatorContext();

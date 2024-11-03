@@ -11,7 +11,7 @@ namespace MSO_Opdracht_3
 	public class BoardDisplay : UserControl
 	{
 		private TaskProgram taskProgram;
-		private int cellSize;
+		private float cellSize;
 		private int cellAmount;
 
 		public TaskProgram TaskProgram
@@ -23,7 +23,7 @@ namespace MSO_Opdracht_3
 				UpdateCellAmount();
 				if (cellAmount != 0)
 				{
-					cellSize = Math.Min(this.Width / cellAmount, this.Height / cellAmount);
+					cellSize = Math.Min((float)this.Width / cellAmount, (float)this.Height / cellAmount);
 				}
 				Invalidate();
 			}
@@ -63,7 +63,6 @@ namespace MSO_Opdracht_3
 			if (taskProgram == null || cellSize == 0) return;
 
 			Graphics gr = e.Graphics;
-			DrawGrid(gr);
 			DrawVisitedPoints(gr);
 			if (taskProgram.Grid is PathFindingGrid)
 			{
@@ -71,6 +70,7 @@ namespace MSO_Opdracht_3
 				DrawEndPoint(gr);
             }
 			DrawPlayer(gr);
+			DrawGrid(gr);
 		}
 
 
@@ -85,15 +85,20 @@ namespace MSO_Opdracht_3
 
 		public void DrawGrid(Graphics gr)
 		{
+			float gridSize = cellAmount * cellSize;
+
+			// draw outer rectangle, this didnt show, because the last cells were just on the edge
+			gr.DrawRectangle(Pens.Black, 0, 0, gridSize - 1, gridSize - 1);
+
+			// Draw inner grid
 			for (int y = 0; y < cellAmount; y++)
 			{
 				for (int x = 0; x < cellAmount; x++)
 				{
 					int flippedY = cellAmount - 1 - y;
-					gr.DrawRectangle(Pens.Black, x * cellSize, flippedY * cellSize, cellSize, cellSize);
+					gr.DrawRectangle(Pens.Black, x * cellSize, flippedY * cellSize, cellSize , cellSize); // Adjust for inner rectangles if needed
 				}
 			}
-
 		}
 
 		public void DrawVisitedPoints(Graphics gr)

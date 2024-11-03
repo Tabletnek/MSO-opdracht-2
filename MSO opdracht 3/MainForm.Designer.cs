@@ -202,7 +202,7 @@
             boardDisplay.Location = new Point(1200, 10);
             boardDisplay.Margin = new Padding(2, 2, 2, 2);
             boardDisplay.Name = "boardDisplay";
-            boardDisplay.Size = new Size(641, 641);
+            boardDisplay.Size = new Size(640, 640);
             boardDisplay.TabIndex = 13;
             boardDisplay.TaskProgram = null;
             // 
