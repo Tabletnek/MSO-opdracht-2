@@ -1,5 +1,5 @@
-BoardSize 30
+BoardSize 0
 Repeat 3 times
 	Repeat 4 times
 		Move 10
-		Turn right
+		Turn left

@@ -1,3 +1,3 @@
-BoardSize 30
+BoardSize 0
 Move 10
-Turn right
+Turn left
