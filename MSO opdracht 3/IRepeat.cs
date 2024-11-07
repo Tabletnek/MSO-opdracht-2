@@ -3,5 +3,7 @@
 	internal interface IRepeat : ITask
 	{
 		List<ITask> Tasks { get; }
+		int StepsDone { get; }
+		int StepsLimit { get; }
 	}
 }

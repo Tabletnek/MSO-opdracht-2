@@ -5,6 +5,8 @@
     {
         public int Amount;  // Number of times to repeat the tasks
 		public List<ITask> Tasks { get; private set; }  // List of tasks to repeat
+		public int StepsDone { get; private set; }
+		public int StepsLimit { get; private set; }
 
 
 		// Constructor initializes the repeat task with a specified amount and tasks
@@ -12,17 +14,28 @@
         {
             this.Tasks = tasks;
             this.Amount = amount;
+            this.StepsLimit = 1000000;
         }
 
         // Executes the tasks the specified number of times.
         void ITask.Execute(Player player, IGrid grid)
         {
-            for (int i = 0; i < Amount; i++)
+	        //Stop at the stepsLimit, to handle infinite loops
+			for (int i = 0; i < Amount; i++)
             {
-                foreach (ITask task in Tasks)
-                    task.Execute(player, grid);
-            }
-        }
+	            foreach (ITask task in Tasks)
+	            {
+		            if (StepsDone >= StepsLimit)
+		            {
+			            throw new InvalidOperationException("Too many steps: the step limit has been reached.");
+		            }
+
+					task.Execute(player, grid);
+		            StepsDone++;
+				}
+
+			}
+		}
 
         // Returns a string representation of the repeated tasks.
         public override string ToString()
@@ -35,10 +48,5 @@
             }
             return result;
         }
-
-		public void Execute(Player player, Grid board)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }
