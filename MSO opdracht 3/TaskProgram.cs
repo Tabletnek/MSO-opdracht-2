@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
 	// The Program class represents a program that consists of a player and a series of tasks
 	public class TaskProgram

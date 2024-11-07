@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
     // The Translator class translates a text file to a grid
     public class PathTranslator : ITranslator<PathFindingGrid>
@@ -41,7 +34,7 @@ namespace MSO_Opdracht_3
                     char tile = _line[i];
                     if (tile == '+')
                     {
-                        grid.Walls.Add(new Point(i, row));
+                        grid.AddWall(new Point(i, row));
                     }
                     if (tile == 'x')
                     {

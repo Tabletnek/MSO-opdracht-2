@@ -18,7 +18,7 @@ namespace MSO_Opdracht_3
 
 		void ITask.Execute(Player player, IGrid grid)
 		{
-			_executionLog.Clear(); //Empty the executionLog when running the repeat again. 
+			_executionLog.Clear(); //Empty the executionLog when running the repeat. 
 
 			while (!grid.WallAhead(player)) //Keep executing tasks as long as the condition isn't met
 			{

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;  
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
     // The Move class implements the ITask interface and defines a move command for a player
     public class Move : ITask

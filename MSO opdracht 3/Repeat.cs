@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
     // The Repeat class implements the ITask interface and repeats a set of tasks a given number of times
     public class Repeat : IRepeat

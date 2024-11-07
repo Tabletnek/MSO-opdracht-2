@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
     // The Turn class implements the ITask interface and turns the player either left or right
     public class Turn : ITask

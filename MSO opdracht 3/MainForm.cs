@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
     public partial class MainForm : Form
     {
         TaskProgram chosenProgram;
-        IGrid chosenExercise = null;
+        IGrid chosenExercise;
         private TranslatorContext translatorContext;
         private Calculator calculator;
         private TaskProgram basicProgram = new TaskProgram(10);
@@ -72,67 +58,50 @@ namespace MSO_Opdracht_3
 			}
 		}
 
-        private void loadExerciseBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (loadExerciseBox.SelectedItem)
-            {
-                case "None":
-                    chosenExercise = null;
+		private void loadExerciseBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			switch (loadExerciseBox.SelectedItem)
+			{
+				case "None":
+					chosenExercise = null;
+					break;
 
-                    // Reset the grid immediately when "None" is selected
-                    if (chosenProgram != null)
-                    {
-                        chosenProgram.Grid = new Grid(chosenProgram.Grid.Size);
-                        LoadProgram(chosenProgram);
-                    }
-                    break;
-                case "Basic":
-                    chosenExercise = basicExercise;
-                    if (chosenProgram == null)
-                    {
-                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
-						chosenProgram = newProgram;
-                        programBuilder.LoadProgram(chosenProgram);
-                    }
-                    LoadProgram(chosenProgram);
-                    break;
-                case "Advanced":
-                    chosenExercise = advancedExercise;
-                    if (chosenProgram == null)
-                    {
-                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
-                        chosenProgram = newProgram;
-                        programBuilder.LoadProgram(chosenProgram);
-                    }
-                    LoadProgram(chosenProgram);
-                    break;
-                case "Expert":
-                    chosenExercise = expertExercise;
-                    if (chosenProgram == null)
-                    {
-                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
-                        chosenProgram = newProgram;
-                        programBuilder.LoadProgram(chosenProgram);
-                    }
-                    LoadProgram(chosenProgram);
-                    break;
-                case "from file...":
-                    LoadExerciseFromFile();
-                    if (chosenProgram == null)
-                    {
-                        TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
-                        chosenProgram = newProgram;
-                        programBuilder.LoadProgram(chosenProgram);
-                    }
-                    LoadProgram(chosenProgram);
-                    break;
-            }
-        }
+				case "Basic":
+					chosenExercise = basicExercise;
+					InitializeProgram();
+					break;
 
-        //Show the file explorer to choose a text file to load
-        // I used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.initialdirectory?view=windowsdesktop-8.0
-        // and https://stackoverflow.com/questions/21769921/does-openfiledialog-initialdirectory-not-accept-relative-path
-        private void LoadProgramFromFile()
+				case "Advanced":
+					chosenExercise = advancedExercise;
+					InitializeProgram();
+					break;
+
+				case "Expert":
+					chosenExercise = expertExercise;
+					InitializeProgram();
+					break;
+
+				case "from file...":
+					LoadExerciseFromFile();
+					InitializeProgram();
+					break;
+			}
+		}
+		private void InitializeProgram()
+		{
+			if (chosenProgram == null)
+			{
+				TaskProgram newProgram = new TaskProgram(chosenExercise.Size);
+				chosenProgram = newProgram;
+				programBuilder.LoadProgram(chosenProgram);
+			}
+			LoadProgram(chosenProgram);
+		}
+
+		//Show the file explorer to choose a text file to load
+		// I used https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.initialdirectory?view=windowsdesktop-8.0
+		// and https://stackoverflow.com/questions/21769921/does-openfiledialog-initialdirectory-not-accept-relative-path
+		private void LoadProgramFromFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {

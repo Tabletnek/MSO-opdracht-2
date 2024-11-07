@@ -9,8 +9,8 @@ namespace MSO_Opdracht_3
 {
 	//For the drag and drop system we used https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/walkthrough-performing-a-drag-and-drop-operation-in-windows-forms?view=netframeworkdesktop-4.8
 	//For making this class a YouTube playlist was used, https://www.youtube.com/playlist?list=PLZHx5heVfgEu45dRS8YzyNnHMRtJGWDxu
-	//This playlist showed how to use a FlowLayoutPanel and it showed us how to move controls.
-	//Also https://www.youtube.com/watch?app=desktop&v=VeapnO7b2gI was used.
+	//This playlist showed how to use a FlowLayoutPanel, and it showed us how to move controls.
+	//Also, https://www.youtube.com/watch?app=desktop&v=VeapnO7b2gI was used.
 
 	public class ProgramBuilder : FlowLayoutPanel
 	{

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
 	public class RepeatEdge : IRepeat
 	{
@@ -18,7 +12,7 @@ namespace MSO_Opdracht_3
 
 		void ITask.Execute(Player player, IGrid grid)
 		{
-			_executionLog.Clear(); //Empty the executionLog when running the repeat again. 
+			_executionLog.Clear(); //Empty the executionLog when running the repeat. 
 
 			while (!grid.GridEdge(player)) //Keep executing tasks as long as the condition isn't met
 			{

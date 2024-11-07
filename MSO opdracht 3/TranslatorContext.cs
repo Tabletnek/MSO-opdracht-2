@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace MSO_Opdracht_3
+﻿namespace MSO_Opdracht_3
 {
     public class TranslatorContext
     {
