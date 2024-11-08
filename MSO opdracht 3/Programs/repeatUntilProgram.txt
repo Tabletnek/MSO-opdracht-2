@@ -1,0 +1,3 @@
+BoardSize 5
+RepeatUntil GridEdge
+	Move 1
