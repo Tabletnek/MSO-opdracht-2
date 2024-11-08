@@ -11,6 +11,7 @@ namespace TestProject1
         private TaskProgram expertProgram;
         private TaskProgram moveProgram;
         private TaskProgram repeatUntilProgram;
+        private TaskProgram repeatUntilExceptionProgram;
 
         public ExecuteTaskProgramTests()
         {
@@ -30,6 +31,9 @@ namespace TestProject1
 
             repeatUntilProgram = new TaskProgram(5);
             repeatUntilProgram.AddTask(new RepeatEdge(moveProgram.Tasks));
+
+            repeatUntilExceptionProgram = new TaskProgram(0);
+            repeatUntilExceptionProgram.AddTask(new RepeatEdge(moveProgram.Tasks));
         }
 
         // Test for program execution, checking final player position and direction
@@ -63,6 +67,22 @@ namespace TestProject1
             repeatUntilProgram.Run();
             Assert.Equal(new Point(4, 0), repeatUntilProgram.Player.Position); // Check if player moved correctly
             Assert.Equal("East", repeatUntilProgram.Player.Direction); // Check if player turned correctly
+        }
+
+        [Fact]
+        public void ExecuteCommandTest5()
+        {
+            // Check if an infinite program will throw an exception
+            Assert.Throws<InvalidOperationException>(() => repeatUntilExceptionProgram.Run()); 
+        }
+
+        [Fact]
+        public void ExecuteCommandTest6()
+        {
+            // Check if moving off the grid will throw an exception
+            TaskProgram moveOffGridProgram = new TaskProgram(5);
+            moveOffGridProgram.AddTask(new Move(10));
+            Assert.Throws<InvalidOperationException>(() => moveOffGridProgram.Run());
         }
     }
 }
