@@ -11,7 +11,7 @@
 		{
 			this.Tasks = tasks;
 			this._executionLog = new List<string>();
-			this.StepsLimit = 1000000;
+			this.StepsLimit = 10000;
 		}
 
 		void ITask.Execute(Player player, IGrid grid)

@@ -89,7 +89,7 @@
 			return x >= 0 && x < Size && y >= 0 && y < Size && !InsideWall(point);
 		}
 
-		private bool InsideWall(Point point)
+		public bool InsideWall(Point point)
 		{
 			return Walls.Any(wall => wall == point);
 		}

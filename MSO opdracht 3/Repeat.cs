@@ -14,7 +14,7 @@
         {
             this.Tasks = tasks;
             this.Amount = amount;
-            this.StepsLimit = 1000000;
+            this.StepsLimit = 10000;
         }
 
         // Executes the tasks the specified number of times.

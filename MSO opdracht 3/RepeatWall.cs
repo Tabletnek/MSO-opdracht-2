@@ -17,7 +17,7 @@ namespace MSO_Opdracht_3
 		{
 			this.Tasks = tasks;
 			this._executionLog = new List<string>();
-			this.StepsLimit = 10000000;
+			this.StepsLimit = 10000;
 		}
 
 		void ITask.Execute(Player player, IGrid grid)
