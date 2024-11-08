@@ -10,9 +10,9 @@
         private TaskProgram advancedProgram = new TaskProgram(10);
         private TaskProgram expertProgram = new TaskProgram(1000);
 
-        private IGrid basicExercise = new PathFindingGrid(10);
-        private IGrid advancedExercise = new PathFindingGrid(10);
-        private IGrid expertExercise = new PathFindingGrid(10);
+        private PathFindingGrid basicExercise = new PathFindingGrid(5);
+        private PathFindingGrid advancedExercise = new PathFindingGrid(3);
+        private PathFindingGrid expertExercise = new PathFindingGrid(5);
 
         public MainForm()
         {
@@ -28,11 +28,21 @@
 
 			advancedProgram.AddTask(new Repeat(4, basicProgram.Tasks));
 
-			//expertProgram.AddTask(new Move(1));
-			//expertProgram.AddTask(new Turn("left"));
-			//expertProgram.AddTask(new Move(1));
-			//expertProgram.AddTask(new Turn("right"));
-			expertProgram.AddTask(new RepeatWall(basicProgram.Tasks));
+			// Create the Example Exercises
+			basicExercise.EndPoint = new Point(4, 0);
+			advancedExercise.EndPoint = new Point(2, 0);
+			advancedExercise.AddWall(new Point(1, 1));
+            advancedExercise.AddWall(new Point(2, 1));
+			expertExercise.EndPoint = new Point(2, 2);
+            expertExercise.AddWall(new Point(2, 3));
+            expertExercise.AddWall(new Point(1, 2));
+            expertExercise.AddWall(new Point(3, 2));
+
+            //expertProgram.AddTask(new Move(1));
+            //expertProgram.AddTask(new Turn("left"));
+            //expertProgram.AddTask(new Move(1));
+            //expertProgram.AddTask(new Turn("right"));
+            expertProgram.AddTask(new RepeatWall(basicProgram.Tasks));
 		}
 
 		//Load a program using one of the examples or one out of a textfile
